@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cg_arsenal", "CG Arsenal.vcxproj", "{6E4EF414-D884-4D13-8348-D2A242F0DE9D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cg_arsenal", "cg_arsenal.vcxproj", "{6E4EF414-D884-4D13-8348-D2A242F0DE9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
