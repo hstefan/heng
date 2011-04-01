@@ -123,10 +123,14 @@ namespace base
 		matrix<M, P> res;
 
 		for(unsigned int i = 0; i < M; ++i)
+		{
 			for(unsigned int j = 0; j < P; ++j)
+			{
 				res(i, j) = 0;
 				for (unsigned int k = 0; k < N; ++k) 
 					res(i, j) += m1(i, k) * m2(k, j);
+			}
+		}
 
 		return res;
 	}
