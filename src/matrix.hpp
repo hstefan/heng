@@ -8,6 +8,7 @@ namespace base
 
 	typedef matrix<4> mat4d;
 	typedef matrix<3> mat3d;
+	typedef matrix<2> mat2d;
 	
 	template <unsigned int M, unsigned int N>
 	struct matrix
