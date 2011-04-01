@@ -20,6 +20,7 @@ namespace base
 		{
 			ret += v1.data[i] * v2.data[i];
 		}
+		return ret;
 	}
 
 	vec3 cross(const vec3& v1, const vec3& v2)
