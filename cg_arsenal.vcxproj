@@ -78,6 +78,7 @@
     <ClInclude Include="src\coloring.hpp" />
     <ClInclude Include="src\math.hpp" />
     <ClInclude Include="src\matrix.hpp" />
+    <ClInclude Include="src\transform.hpp" />
     <ClInclude Include="src\vector.hpp" />
   </ItemGroup>
   <ItemGroup>
