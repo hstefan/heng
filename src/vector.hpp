@@ -23,7 +23,7 @@ namespace base
 		return ret;
 	}
 
-	vec3 cross(const vec3& v1, const vec3& v2)
+	inline vec3 cross(const vec3& v1, const vec3& v2)
 	{
 		vec3 res = {{
 			v1[1]*v2[2] - v2[1]*v1[2],
