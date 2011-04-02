@@ -63,7 +63,18 @@ namespace base
 			s += vec[i] * vec[i];
 		return vec * math::invSqrt(s);
 	}
-	
+
+	inline char quadrant(const vec2& vec)
+	{
+		char quad = 1;
+		if(vec[0] < 0 && vec[1] > 0)
+			quad = 2;
+		else if (vec[0] < 0 && vec[1] < 0)
+			quad = 3;
+		else if (vec[0] > 0 && vec[1] < 0)
+			quad = 4;
+		return quad;
+	}
 }
 
 #ifdef _DEBUG
