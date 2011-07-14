@@ -22,29 +22,80 @@
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
+#ifndef HENG_CORE_C2D_TRANSFORM_HPP
+#define HENG_CORE_C2D_TRANSFORM_HPP
 
-#include "projection.hpp"
+#include "../math/vector.hpp"
+#include "../math/matrix.hpp"
+#include <cmath>
 
-using namespace hstefan::core::math;
-
-mat4d hstefan::core::c3d::orthogonalProj()
+namespace heng
 {
-   mat4d m = {{
-      1, 0, 0, 0,
-      0, 1, 0, 0,
-      0, 0, 0, 0,
-      0, 0, 0, 1
+namespace core
+{
+namespace c2d
+{
+
+using math::vec2;
+using math::vec3;
+using math::mat3d;
+
+//deprecated
+inline vec2 rotateClockwise(const vec2& vec, float angle)
+{
+   mat2d m = {{ 
+      std::cos(angle) , std::sin(angle), 
+      -std::sin(angle), std::cos(angle) 
    }};
+
+   return m*vec;
+}
+
+//deprecated
+inline vec2 rotateAntiClockwise(const vec2& vec, float angle)
+{
+   mat2d m = {{
+      std::cos(angle), -std::sin(angle), 
+      std::sin(angle),  std::cos(angle)
+   }};
+
+   return m*vec;
+}
+
+inline mat3d rotMat2dh(float angle)
+{ 
+   mat3d m = {{
+      std::cos(angle), -std::sin(angle), 0,
+      std::sin(angle), std::cos(angle) , 0,
+      0              , 0,                1
+   }};
+
    return m;
 }
 
-mat4d hstefan::core::c3d::perspecProj(float d)
-{
-   mat4d m = {{
-      1, 0, 0, 0,
-      0, 1, 0, 0,
-      0, 0, 0, 0,
-      0, 0, d, 1
+inline mat3d scaleMat2dh(float sx, float sy)
+{ 
+   mat3d m = {{
+      sx, 0 , 0,
+      0 , sy, 0,
+      0 , 0 , 1
    }};
+
    return m;
 }
+
+inline mat3d transMat2dh(float tx, float ty)
+{
+   mat3d m = {{
+      1, 0, tx,
+      0, 1, ty,
+      0, 0, 1
+   }};
+
+   return m;
+}
+
+} //namespace math
+} //namespace core
+} //namespace heng
+#endif

@@ -22,10 +22,10 @@
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
-#ifndef HSTEFAN_CORE_MATH_MATRIX_HPP
-#define HSTEFAN_CORE_MATH_MATRIX_HPP
+#ifndef HENG_CORE_MATH_MATRIX_HPP
+#define HENG_CORE_MATH_MATRIX_HPP
 
-namespace hstefan
+namespace heng
 {
 namespace core
 {
@@ -164,5 +164,5 @@ matrix<M,P> operator*(const matrix<M, N>& m1, const matrix<N, P>& m2)
 }
 } //namespace math
 } //namespace core
-} //namespace hstefan
+} //namespace heng
 #endif

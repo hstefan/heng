@@ -22,80 +22,43 @@
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
-#ifndef HSTEFAN_CORE_C2D_TRANSFORM_HPP
-#define HSTEFAN_CORE_C2D_TRANSFORM_HPP
 
-#include "../math/vector.hpp"
-#include "../math/matrix.hpp"
-#include <cmath>
-
-namespace hstefan
-{
-namespace core
-{
-namespace c2d
-{
-
-using math::vec2;
-using math::vec3;
-using math::mat3d;
-
-//deprecated
-inline vec2 rotateClockwise(const vec2& vec, float angle)
-{
-   mat2d m = {{ 
-      std::cos(angle) , std::sin(angle), 
-      -std::sin(angle), std::cos(angle) 
-   }};
-
-   return m*vec;
-}
-
-//deprecated
-inline vec2 rotateAntiClockwise(const vec2& vec, float angle)
-{
-   mat2d m = {{
-      std::cos(angle), -std::sin(angle), 
-      std::sin(angle),  std::cos(angle)
-   }};
-
-   return m*vec;
-}
-
-inline mat3d rotMat2dh(float angle)
-{ 
-   mat3d m = {{
-      std::cos(angle), -std::sin(angle), 0,
-      std::sin(angle), std::cos(angle) , 0,
-      0              , 0,                1
-   }};
-
-   return m;
-}
-
-inline mat3d scaleMat2dh(float sx, float sy)
-{ 
-   mat3d m = {{
-      sx, 0 , 0,
-      0 , sy, 0,
-      0 , 0 , 1
-   }};
-
-   return m;
-}
-
-inline mat3d transMat2dh(float tx, float ty)
-{
-   mat3d m = {{
-      1, 0, tx,
-      0, 1, ty,
-      0, 0, 1
-   }};
-
-   return m;
-}
-
-} //namespace math
-} //namespace core
-} //namespace hstefan
+#include "Cube.hpp"
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN 1
+#include <windows.h>
 #endif
+#include <GL/gl.h>
+
+using heng::core::game::shapes::Cube;
+
+const heng::core::math::vec3 Cube::v[8] = { {{-0.5f, 0.5f, 0.5f}}, 
+   {{0.5f, 0.5f, 0.5f}}, {{0.5f, -0.5f, 0.5f}}, 
+   {{-0.5f, -0.5f, 0.5f}}, {{-0.5f, 0.5f, -0.5f}}, 
+   {{0.5f, 0.5f, -0.5f}}, {{0.5f, -0.5f, -0.5f}}, 
+   {{-0.5f, -0.5f, -0.5f}} };
+const int Cube::v_i[36] = {0, 1, 2, 2, 3, 0, 0, 4, 7, 7, 3, 0, 0, 4, 5, 5, 
+   1, 4, 4, 5, 6, 6, 7, 4, 7, 2, 3, 7, 6, 2, 2, 1, 5, 5, 6, 1};
+
+Cube::Cube(float wx, float wy, float wz, float sx, float sy, float sz)
+   : wx(wx), wy(wy), wz(wz), sx(sx), sy(sy), sz(sz)
+{
+
+}
+
+void Cube::onUpdate()
+{
+}
+
+void Cube::onRender()
+{
+   glPushMatrix();
+   glTranslatef(wx, wy, wz);
+   glScalef(sx, sy, sz);
+   glColor3f(1.f, 0.f, 0.f);
+   glBegin(GL_TRIANGLES);
+      for(int i = 0; i < 36; ++i) 
+         glVertex3f(v[v_i[i]][0], v[v_i[i]][1], v[v_i[i]][2]);
+   glEnd();
+   glPopMatrix();
+}

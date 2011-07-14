@@ -23,45 +23,26 @@
  * Matricula: 2910182
  */
 
-#ifndef HSTEFAN_CORE_GAME_SHAPES_CUBE_HPP
-#define HSTEFAN_CORE_GAME_SHAPES_CUBE_HPP
+#ifndef HENG_CORE_C3D_TRANSFORM_3D_HPP
+#define HENG_CORE_C3D_TRANSFORM_3D_HPP
 
-#include "../GameObject.hpp"
-#include "../../math/vector.hpp"
-
-namespace hstefan {
-namespace core {
-namespace game {
-namespace shapes {
-
-/**
- * Creates an 1x1x1 cube.
- */
-class Cube : public GameObject
+#include "../math/matrix.hpp"
+namespace heng
 {
-public:
-   /**
-    * @param wx X center.
-    * @param wy Y center.
-    * @param wz Z center.
-    * @param sx X size.
-    * @param sy Y size.
-    * @param sy Z size.
-    */
-   Cube(float wx, float wy, float wz, float sx, float sy, float sz);
+namespace core
+{
+namespace c3d
+{
 
-   void onUpdate();
-   virtual void onRender();
+math::mat4d yawRotationMatrix(float angle);
+math::mat4d pitchRotationMatrix(float angle);
+math::mat4d rollRotationMatrix(float angle);
+math::mat4d translationMatrix(float tx, float ty, float tz);
+math::mat4d scaleMatrix(float sx, float sy, float sz);
+math::mat4d identityMatrix();
 
-   const float wx, wy, wz;
-   const float sx, sy, sz;
-   
-   static const hstefan::core::math::vec3 v[8];
-   static const int v_i[36];
-};
-
-} //namespace forms
-} //namespace game
+} //namespace c3d
 } //namespace core
-} //namespace hstefan
+} //namespace heng
+
 #endif

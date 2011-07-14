@@ -18,47 +18,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN      *
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
+
 /*
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
 
-#include "Cube.hpp"
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN 1
-#include <windows.h>
-#endif
-#include <GL/gl.h>
+#include "WinManager.hpp"
 
-using hstefan::core::game::shapes::Cube;
+#include <algorithm>
+#include <GL/glfw.h>
 
-const hstefan::core::math::vec3 Cube::v[8] = { {{-0.5f, 0.5f, 0.5f}}, 
-   {{0.5f, 0.5f, 0.5f}}, {{0.5f, -0.5f, 0.5f}}, 
-   {{-0.5f, -0.5f, 0.5f}}, {{-0.5f, 0.5f, -0.5f}}, 
-   {{0.5f, 0.5f, -0.5f}}, {{0.5f, -0.5f, -0.5f}}, 
-   {{-0.5f, -0.5f, -0.5f}} };
-const int Cube::v_i[36] = {0, 1, 2, 2, 3, 0, 0, 4, 7, 7, 3, 0, 0, 4, 5, 5, 
-   1, 4, 4, 5, 6, 6, 7, 4, 7, 2, 3, 7, 6, 2, 2, 1, 5, 5, 6, 1};
+using heng::core::wman::WinManager;
 
-Cube::Cube(float wx, float wy, float wz, float sx, float sy, float sz)
-   : wx(wx), wy(wy), wz(wz), sx(sx), sy(sy), sz(sz)
+WinManager::WinManager(float fps, float ups)
+   : fps(1./fps), ups(1./ups)
+{}
+
+void WinManager::run()
 {
-
-}
-
-void Cube::onUpdate()
-{
-}
-
-void Cube::onRender()
-{
-   glPushMatrix();
-   glTranslatef(wx, wy, wz);
-   glScalef(sx, sy, sz);
-   glColor3f(1.f, 0.f, 0.f);
-   glBegin(GL_TRIANGLES);
-      for(int i = 0; i < 36; ++i) 
-         glVertex3f(v[v_i[i]][0], v[v_i[i]][1], v[v_i[i]][2]);
-   glEnd();
-   glPopMatrix();
+   double last_update = 0.;
+   double last_render = 0.;
+   double sleep_t = 0.;
+   onStart();
+   while(!isDone() && glfwGetWindowParam(GLFW_OPENED))
+   {
+      if(glfwGetTime() - last_update > ups)
+      {
+         onUpdate();
+         last_update = glfwGetTime();
+      }
+      if(glfwGetTime() - last_render > fps)
+      {
+         glClear(GL_COLOR_BUFFER_BIT);
+         onRender();
+         glfwSwapBuffers();
+         last_render = glfwGetTime();
+      }
+      sleep_t = std::min(last_update + ups - glfwGetTime(), last_render + fps - glfwGetTime());
+      glfwSleep(sleep_t);
+   }
+   onDestroy();
+   glfwTerminate();
 }

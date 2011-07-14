@@ -22,46 +22,46 @@
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
-#ifndef HSTEFAN_CORE_CAMERA_C3D_HPP
-#define HSTEFAN_CORE_CAMERA_C3D_HPP
 
-#include "../math/vector.hpp"
+#ifndef HENG_CORE_GAME_SHAPES_CUBE_HPP
+#define HENG_CORE_GAME_SHAPES_CUBE_HPP
 
-namespace hstefan
-{
-namespace core
-{
-namespace c3d
-{
-using hstefan::core::math::vec3;
-using hstefan::core::math::mat4d;
-class Camera
+#include "../GameObject.hpp"
+#include "../../math/vector.hpp"
+
+namespace heng {
+namespace core {
+namespace game {
+namespace shapes {
+
+/**
+ * Creates an 1x1x1 cube.
+ */
+class Cube : public GameObject
 {
 public:
-   Camera(math::vec3 eye, math::vec3 center, math::vec3 up);
+   /**
+    * @param wx X center.
+    * @param wy Y center.
+    * @param wz Z center.
+    * @param sx X size.
+    * @param sy Y size.
+    * @param sy Z size.
+    */
+   Cube(float wx, float wy, float wz, float sx, float sy, float sz);
 
-   void translate(float tx, float ty, float tz);
-   void yaw(float angle);
-   void pitch(float angle);
-   void roll(float angle);
-   void rotate(float yaw, float pitch, float roll);
+   void onUpdate();
+   virtual void onRender();
 
-   mat4d matrix() const;
-private:
-   void initCam();
-   void createMatrix();
-   void onChange();
-
-   math::vec3 m_eye;
-   math::vec3 m_center;
-   math::vec3 m_up;
-   math::vec3 m_forward;
-   math::vec3 m_right;
-   math::mat4d m_matrix;
+   const float wx, wy, wz;
+   const float sx, sy, sz;
+   
+   static const heng::core::math::vec3 v[8];
+   static const int v_i[36];
 };
 
-} //namespace c3d
+} //namespace forms
+} //namespace game
 } //namespace core
-} //namespace hstefan
-
+} //namespace heng
 #endif

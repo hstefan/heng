@@ -14,7 +14,7 @@
     <ProjectGuid>{6E4EF414-D884-4D13-8348-D2A242F0DE9D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CGArsenal</RootNamespace>
-    <ProjectName>cg_arsenal</ProjectName>
+    <ProjectName>heng</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -87,6 +87,17 @@
     <ClInclude Include="src\core\math\matrix.hpp" />
     <ClInclude Include="src\core\math\vector.hpp" />
     <ClInclude Include="src\core\wman\WinManager.hpp" />
+    <ClInclude Include="src\heng\core\c2d\transform.hpp" />
+    <ClInclude Include="src\heng\core\c3d\Camera.hpp" />
+    <ClInclude Include="src\heng\core\c3d\projection.hpp" />
+    <ClInclude Include="src\heng\core\c3d\transform3d.hpp" />
+    <ClInclude Include="src\heng\core\game\GameObject.hpp" />
+    <ClInclude Include="src\heng\core\game\GameWorld.hpp" />
+    <ClInclude Include="src\heng\core\game\shapes\Cube.hpp" />
+    <ClInclude Include="src\heng\core\math\math.hpp" />
+    <ClInclude Include="src\heng\core\math\matrix.hpp" />
+    <ClInclude Include="src\heng\core\math\vector.hpp" />
+    <ClInclude Include="src\heng\core\wman\WinManager.hpp" />
     <ClInclude Include="src\math.hpp" />
     <ClInclude Include="src\matrix.hpp" />
     <ClInclude Include="src\transform.hpp" />
@@ -100,6 +111,12 @@
     <ClCompile Include="src\core\game\GameWorld.cpp" />
     <ClCompile Include="src\core\game\shapes\Cube.cpp" />
     <ClCompile Include="src\core\wman\WinManager.cpp" />
+    <ClCompile Include="src\heng\core\c3d\Camera.cpp" />
+    <ClCompile Include="src\heng\core\c3d\projection.cpp" />
+    <ClCompile Include="src\heng\core\c3d\transform3d.cpp" />
+    <ClCompile Include="src\heng\core\game\GameWorld.cpp" />
+    <ClCompile Include="src\heng\core\game\shapes\Cube.cpp" />
+    <ClCompile Include="src\heng\core\wman\WinManager.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

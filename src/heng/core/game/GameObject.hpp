@@ -23,49 +23,48 @@
  * Matricula: 2910182
  */
 
-#ifndef HSTEFAN_CORE_GAME_GAMEWORLD_HPP
-#define HSTEFAN_CORE_GAME_GAMEWORLD_HPP
+#ifndef HENG_CORE_GAME_GAMEOBJECT_HPP
+#define HENG_CORE_GAME_GAMEOBJECT_HPP
 
-#include <map>
-#include "../wman/WinManager.hpp"
+#include "GameWorld.hpp"
 
-namespace hstefan
+namespace heng
 {
 namespace core
 {
 namespace game
 {
 
-class GameObject;
-
-class GameWorld : public wman::WinManager
+class GameObject
 {
 public:
-   typedef int object_id;
-   
-   static const int DEFAULT_OBJECT_ID = -1;
-
-   inline GameWorld(float fps = 30.f, float ups = 60.f);
-
-   bool isDone();
-   void onUpdate();
-   void onRender();
-   void onDestroy();
-   void onStart();
-
-   std::pair<object_id, bool> addObject(GameObject* obj);
-   bool removeObject(object_id id);
-private:
-   std::map<object_id, GameObject*> game_objs;
-   object_id next_id;
+   inline GameObject();
+   /**
+    * Função chamada a cada ciclo de update no gameworld.
+    */
+   virtual void onUpdate() = 0;
+   /**
+    * Função chamada a cada ciclo de render no gameworld.
+    */
+   virtual void onRender() = 0;
+   /**
+    * Função chamada quando o gameworld é destruido.
+    */
+   virtual void onDestroy()
+   {/* Por padrão, não faz nada. */ }
+   virtual void onCreate()
+   {/* Por padrão, não faz nada. */ }
+protected:
+   friend class GameWorld;
+   GameWorld::object_id id;
 };
 
-GameWorld::GameWorld(float  fps, float ups)
-   : wman::WinManager(fps, ups), game_objs(), next_id(0)
+GameObject::GameObject()
+   : id(GameWorld::DEFAULT_OBJECT_ID)
 {}
 
 } //namespace game
 } //namespace core
-} //namespace hstefan
+} //namespace heng
 
 #endif

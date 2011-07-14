@@ -18,46 +18,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN      *
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
-
 /*
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
 
-#include "WinManager.hpp"
+#include "projection.hpp"
 
-#include <algorithm>
-#include <GL/glfw.h>
+using namespace heng::core::math;
 
-using hstefan::core::wman::WinManager;
-
-WinManager::WinManager(float fps, float ups)
-   : fps(1./fps), ups(1./ups)
-{}
-
-void WinManager::run()
+mat4d heng::core::c3d::orthogonalProj()
 {
-   double last_update = 0.;
-   double last_render = 0.;
-   double sleep_t = 0.;
-   onStart();
-   while(!isDone() && glfwGetWindowParam(GLFW_OPENED))
-   {
-      if(glfwGetTime() - last_update > ups)
-      {
-         onUpdate();
-         last_update = glfwGetTime();
-      }
-      if(glfwGetTime() - last_render > fps)
-      {
-         glClear(GL_COLOR_BUFFER_BIT);
-         onRender();
-         glfwSwapBuffers();
-         last_render = glfwGetTime();
-      }
-      sleep_t = std::min(last_update + ups - glfwGetTime(), last_render + fps - glfwGetTime());
-      glfwSleep(sleep_t);
-   }
-   onDestroy();
-   glfwTerminate();
+   mat4d m = {{
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 0, 0,
+      0, 0, 0, 1
+   }};
+   return m;
+}
+
+mat4d heng::core::c3d::perspecProj(float d)
+{
+   mat4d m = {{
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 0, 0,
+      0, 0, d, 1
+   }};
+   return m;
 }

@@ -22,24 +22,28 @@
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
+#ifndef HENG_CORE_MATH_MATH_HPP
+#define HENG_CORE_MATH_MATH_HPP
 
-#ifndef HSTEFAN_CORE_C3D_PROJECTION_HPP
-#define HSTEFAN_CORE_C3D_PROJECTION_HPP
-
-#include "../math/matrix.hpp"
-
-namespace hstefan
+namespace heng
 {
 namespace core
 {
-namespace c3d
+namespace math
 {
 
-math::mat4d orthogonalProj();
-math::mat4d perspecProj(float d = 1.f);
+inline float invSqrt(float x)
+{
+   float xhalf = 0.5f*x;
+   int i = *(int*)&x;
+   i = 0x5f3759df - (i>>1);
+   x = *(float*)&i;
+   x = x*(1.5f - xhalf*x*x);
+   return x;
+}
 
-} //namespace c3d
+} //namespace math
 } //namespace core
-} //namespace hstefan
+} //namespace heng
 
 #endif

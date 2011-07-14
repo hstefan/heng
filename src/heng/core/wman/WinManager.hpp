@@ -18,53 +18,76 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN      *
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
+
 /*
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
 
-#ifndef HSTEFAN_CORE_GAME_GAMEOBJECT_HPP
-#define HSTEFAN_CORE_GAME_GAMEOBJECT_HPP
+#ifndef HENG_CORE_WIN_MANAGER_HPP
+#define HENG_CORE_WIN_MANAGER_HPP
 
-#include "GameWorld.hpp"
-
-namespace hstefan
+namespace heng
 {
 namespace core
 {
-namespace game
+namespace wman
 {
-
-class GameObject
+/**
+ * Classe para abstrata para manipular o main loop de aplicações gráficas.
+ */
+class WinManager
 {
 public:
-   inline GameObject();
    /**
-    * Função chamada a cada ciclo de update no gameworld.
+    * Função que deve ser sobreescrita para realisar operações de atualização, 
+    * de acordo com o tempo especificado no construtor.
     */
-   virtual void onUpdate() = 0;
+   virtual void onUpdate() 
+   { /* Por padrão, a função onUpdate não faz nada. */ }
+   
    /**
-    * Função chamada a cada ciclo de render no gameworld.
+    * Função que deve ser sobreescrita para realisar operações de renderização, 
+    * de acordo com o tempo especificado no construtor.
     */
    virtual void onRender() = 0;
+   
    /**
-    * Função chamada quando o gameworld é destruido.
+    * Função chamada após término do main loop.
     */
    virtual void onDestroy()
-   {/* Por padrão, não faz nada. */ }
-   virtual void onCreate()
-   {/* Por padrão, não faz nada. */ }
+   { /* Por padrão, não faz nada. */}
+
+   /**
+    * Função chamada quando o programa começa a rodar.
+    */
+   virtual void onStart()
+   { /*Por padrão, não faz nada*/ }
+
+   /**
+    * Função que vai "dizer" quando o programa pára, o teste será feito após cada
+    * chamada da função onUpdate.
+    */
+   virtual bool isDone() = 0;
+
+   /**
+    * Função que inicia o loop principal.
+    */
+   void run();
+
+   /**
+    * @param fps Frames per second.
+    * @param ups Updates per second.
+    */
+   WinManager(float fps, float ups);
+
 protected:
-   friend class GameWorld;
-   GameWorld::object_id id;
+   double fps;
+   double ups;
 };
 
-GameObject::GameObject()
-   : id(GameWorld::DEFAULT_OBJECT_ID)
-{}
-
-} //namespace game
+} //namespace wman
 } //namespace core
-} //namespace hstefan
+} //namespace heng
 
 #endif

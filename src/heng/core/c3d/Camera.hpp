@@ -22,27 +22,46 @@
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
+#ifndef HENG_CORE_CAMERA_C3D_HPP
+#define HENG_CORE_CAMERA_C3D_HPP
 
-#ifndef HSTEFAN_CORE_C3D_TRANSFORM_3D_HPP
-#define HSTEFAN_CORE_C3D_TRANSFORM_3D_HPP
+#include "../math/vector.hpp"
 
-#include "../math/matrix.hpp"
-namespace hstefan
+namespace heng
 {
 namespace core
 {
 namespace c3d
 {
+using heng::core::math::vec3;
+using heng::core::math::mat4d;
+class Camera
+{
+public:
+   Camera(math::vec3 eye, math::vec3 center, math::vec3 up);
 
-math::mat4d yawRotationMatrix(float angle);
-math::mat4d pitchRotationMatrix(float angle);
-math::mat4d rollRotationMatrix(float angle);
-math::mat4d translationMatrix(float tx, float ty, float tz);
-math::mat4d scaleMatrix(float sx, float sy, float sz);
-math::mat4d identityMatrix();
+   void translate(float tx, float ty, float tz);
+   void yaw(float angle);
+   void pitch(float angle);
+   void roll(float angle);
+   void rotate(float yaw, float pitch, float roll);
+
+   mat4d matrix() const;
+private:
+   void initCam();
+   void createMatrix();
+   void onChange();
+
+   math::vec3 m_eye;
+   math::vec3 m_center;
+   math::vec3 m_up;
+   math::vec3 m_forward;
+   math::vec3 m_right;
+   math::mat4d m_matrix;
+};
 
 } //namespace c3d
 } //namespace core
-} //namespace hstefan
+} //namespace heng
 
 #endif

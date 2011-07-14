@@ -22,85 +22,79 @@
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
+
+#include "Camera.hpp"
 #include "transform3d.hpp"
-#include <cmath>
 
-namespace hstefan
-{
-namespace core
-{
-namespace c3d
-{
+using heng::core::c3d::Camera;
+using namespace heng::core::math;
 
-using math::mat4d;
-
-mat4d yawRotationMatrix(float angle)
+Camera::Camera(vec3 eye, vec3 center, vec3 up)
+   : m_eye(eye), m_center(center), m_up(up)
 {
-   mat4d m = {
-      {
-         cos(angle) ,   0   , sin(angle) ,    0,
-              0     ,   1   ,     0      ,    0,
-         -sin(angle),   0   , cos(angle) ,    0,
-              0     ,   0   ,     0      ,    1
-
-      }
-   };
-   return m;
-}
-mat4d pitchRotationMatrix(float angle)
-{
-   mat4d m = {
-      {
-            1       ,       0        ,     0         ,    0,
-            0       ,   cos(angle)   ,   sin(angle)  ,    0,
-            0       ,  -sin(angle)   ,   cos(angle)  ,    0,
-            0       ,       0        ,      0        ,    1
-      }
-   };
-   return m;
-}
-mat4d rollRotationMatrix(float angle)
-{
-   mat4d m = {
-      {
-            cos(angle)   ,   sin(angle)   ,   0  ,    0,
-            -sin(angle)  ,   cos(angle)   ,   0  ,    0,
-                 0       ,        0       ,   1  ,    0,
-                 0       ,        0       ,   0  ,    1
-      }
-   };
-   return m;
-}
-mat4d translationMatrix(float tx, float ty, float tz)
-{
-   mat4d m = {
-      {
-         1, 0, 0, tx,
-         0, 1, 0, ty,
-         0, 0, 1, tz,
-         0, 0, 0,  1
-      }
-   };
-   return m;
-}
-mat4d scaleMatrix(float sx, float sy, float sz)
-{
-   mat4d m  = {
-      {
-            sx, 0  , 0 , 0,
-            0 , sy , 0 , 0,
-            0 , 0  , sz, 0,
-            0,  0  , 0 , 1
-      }
-   };
-   return m;
+   initCam();
+   createMatrix();
 }
 
-mat4d identityMatrix()
+void Camera::initCam()
 {
-   return scaleMatrix(1.f, 1.f, 1.f);
+   m_forward = normalize(m_center - m_eye);
+   m_up = normalize(m_up);
+   m_right =  cross(m_forward, m_up);
 }
 
-} //namespace math
-} //namespace core
-} //namespace hstefan
+void Camera::createMatrix()
+{
+   vec3 u = cross(m_right, m_forward);
+   float a = dot(m_eye, m_right);
+   float b = dot(m_eye, m_forward);
+   float c = dot(m_eye, m_up);
+
+   static const mat4d res = {{
+      m_right[0]  ,  m_right[1] ,  m_right[2]  ,  -a,
+         u[0]     ,      u[1]   ,     u[2]     ,  -c,
+      m_forward[0], m_forward[1],  m_forward[2],  -b,
+          0       ,       0     ,       0      ,    1
+   }};
+
+   m_matrix = res;
+}
+
+void Camera::onChange()
+{
+   createMatrix();
+}
+
+void Camera::translate(float tx, float ty, float tz)
+{
+   m_eye = unhomogen(translationMatrix(tx, ty, tz) * homogen(m_eye));
+}
+
+void Camera::yaw(float angle)
+{
+   rotate(angle, 0.f, 0.f);
+}
+
+void Camera::pitch(float angle)
+{
+   rotate(0.f, angle, 0.f);
+}
+
+void Camera::roll(float angle)
+{
+   rotate(0.f, 0.f, angle);
+}
+
+heng::core::math::mat4d Camera::matrix() const
+{
+   return m_matrix;
+}
+
+void Camera::rotate(float yaw, float pitch, float roll)
+{
+   mat4d res = pitchRotationMatrix(pitch)*yawRotationMatrix(yaw)*rollRotationMatrix(roll);
+   m_forward = unhomogen(res*homogen(m_forward));
+   m_up = unhomogen(res*homogen(m_up));
+   m_right = unhomogen(res*homogen(m_right));
+   onChange();
+}

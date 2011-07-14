@@ -22,14 +22,14 @@
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
-#ifndef HSTEFAN_CORE_MATH_VECTOR_HPP
-#define HSTEFAN_CORE_MATH_VECTOR_HPP
+#ifndef HENG_CORE_MATH_VECTOR_HPP
+#define HENG_CORE_MATH_VECTOR_HPP
 
 #include "matrix.hpp"
 #include "math.hpp"
 #include <cmath>
 
-namespace hstefan
+namespace heng
 {
 namespace core
 {
@@ -159,12 +159,12 @@ inline float distance(const matrix<M, 1>& v, const matrix<M, 1>& u)
 
 } //namespace math
 } //namespace core
-} //namespace hstefan
+} //namespace heng
 
 #ifdef _DEBUG
 #include <ostream>
 template <unsigned int M, unsigned int N>
-std::ostream& operator<<(std::ostream& out, const hstefan::core::math::matrix<M, N>& m)
+std::ostream& operator<<(std::ostream& out, const heng::core::math::matrix<M, N>& m)
 {
 	out << "(";
 	for(unsigned int i = 0; i < M; ++i)

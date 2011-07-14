@@ -22,28 +22,85 @@
  * Nome: Hugo Stefan Kaus Puhlmann
  * Matricula: 2910182
  */
-#ifndef HSTEFAN_CORE_MATH_MATH_HPP
-#define HSTEFAN_CORE_MATH_MATH_HPP
+#include "transform3d.hpp"
+#include <cmath>
 
-namespace hstefan
+namespace heng
 {
 namespace core
 {
-namespace math
+namespace c3d
 {
 
-inline float invSqrt(float x)
+using math::mat4d;
+
+mat4d yawRotationMatrix(float angle)
 {
-   float xhalf = 0.5f*x;
-   int i = *(int*)&x;
-   i = 0x5f3759df - (i>>1);
-   x = *(float*)&i;
-   x = x*(1.5f - xhalf*x*x);
-   return x;
+   mat4d m = {
+      {
+         cos(angle) ,   0   , sin(angle) ,    0,
+              0     ,   1   ,     0      ,    0,
+         -sin(angle),   0   , cos(angle) ,    0,
+              0     ,   0   ,     0      ,    1
+
+      }
+   };
+   return m;
+}
+mat4d pitchRotationMatrix(float angle)
+{
+   mat4d m = {
+      {
+            1       ,       0        ,     0         ,    0,
+            0       ,   cos(angle)   ,   sin(angle)  ,    0,
+            0       ,  -sin(angle)   ,   cos(angle)  ,    0,
+            0       ,       0        ,      0        ,    1
+      }
+   };
+   return m;
+}
+mat4d rollRotationMatrix(float angle)
+{
+   mat4d m = {
+      {
+            cos(angle)   ,   sin(angle)   ,   0  ,    0,
+            -sin(angle)  ,   cos(angle)   ,   0  ,    0,
+                 0       ,        0       ,   1  ,    0,
+                 0       ,        0       ,   0  ,    1
+      }
+   };
+   return m;
+}
+mat4d translationMatrix(float tx, float ty, float tz)
+{
+   mat4d m = {
+      {
+         1, 0, 0, tx,
+         0, 1, 0, ty,
+         0, 0, 1, tz,
+         0, 0, 0,  1
+      }
+   };
+   return m;
+}
+mat4d scaleMatrix(float sx, float sy, float sz)
+{
+   mat4d m  = {
+      {
+            sx, 0  , 0 , 0,
+            0 , sy , 0 , 0,
+            0 , 0  , sz, 0,
+            0,  0  , 0 , 1
+      }
+   };
+   return m;
+}
+
+mat4d identityMatrix()
+{
+   return scaleMatrix(1.f, 1.f, 1.f);
 }
 
 } //namespace math
 } //namespace core
-} //namespace hstefan
-
-#endif
+} //namespace heng

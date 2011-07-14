@@ -23,58 +23,49 @@
  * Matricula: 2910182
  */
 
-#include "GameWorld.hpp"
-#include "GameObject.hpp"
-#include <algorithm>
-#include <GL/glfw.h>
+#ifndef HENG_CORE_GAME_GAMEWORLD_HPP
+#define HENG_CORE_GAME_GAMEWORLD_HPP
 
-using hstefan::core::game::GameWorld;
-using hstefan::core::game::GameObject;
+#include <map>
+#include "../wman/WinManager.hpp"
 
-bool GameWorld::isDone()
+namespace heng
 {
-   return glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS;
-}
+namespace core
+{
+namespace game
+{
 
-void GameWorld::onUpdate()
-{
-   std::for_each(game_objs.begin(), game_objs.end(), 
-      [](std::pair<object_id, GameObject*> p) { p.second->onUpdate(); } );
-}
+class GameObject;
 
-void GameWorld::onRender()
+class GameWorld : public wman::WinManager
 {
-   std::for_each(game_objs.begin(), game_objs.end(), 
-      [](std::pair<object_id, GameObject*> p) { p.second->onRender(); } );
-}
-void GameWorld::onDestroy()
-{
-   std::for_each(game_objs.begin(), game_objs.end(), 
-      [](std::pair<object_id, GameObject*> p) { p.second->onDestroy(); } );
-}
-void GameWorld::onStart()
-{
-   std::for_each(game_objs.begin(), game_objs.end(), 
-      [](std::pair<object_id, GameObject*> p) { p.second->onCreate(); } );
-}
+public:
+   typedef int object_id;
+   
+   static const int DEFAULT_OBJECT_ID = -1;
 
-std::pair<GameWorld::object_id, bool> GameWorld::addObject(GameObject* obj)
-{
-   int id = next_id++;
-   auto r = game_objs.insert(std::make_pair(id, obj));
-   if(r.second)
-   {
-      obj->id = id;
-      return std::make_pair(id, true);
-   }
-   else
-   {
-      --next_id;
-      return std::make_pair(DEFAULT_OBJECT_ID, false);
-   }
-}
+   inline GameWorld(float fps = 30.f, float ups = 60.f);
 
-bool GameWorld::removeObject(object_id id)
-{
-   return game_objs.erase(id) > 0;
-}
+   bool isDone();
+   void onUpdate();
+   void onRender();
+   void onDestroy();
+   void onStart();
+
+   std::pair<object_id, bool> addObject(GameObject* obj);
+   bool removeObject(object_id id);
+private:
+   std::map<object_id, GameObject*> game_objs;
+   object_id next_id;
+};
+
+GameWorld::GameWorld(float  fps, float ups)
+   : wman::WinManager(fps, ups), game_objs(), next_id(0)
+{}
+
+} //namespace game
+} //namespace core
+} //namespace heng
+
+#endif
