@@ -18,10 +18,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN      *
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
-/*
- * Nome: Hugo Stefan Kaus Puhlmann
- * Matricula: 2910182
- */
+
 #ifndef HENG_CORE_CAMERA_C3D_HPP
 #define HENG_CORE_CAMERA_C3D_HPP
 

@@ -19,11 +19,6 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-/*
- * Nome: Hugo Stefan Kaus Puhlmann
- * Matricula: 2910182
- */
-
 #ifndef HENG_CORE_WIN_MANAGER_HPP
 #define HENG_CORE_WIN_MANAGER_HPP
 
