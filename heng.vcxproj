@@ -75,49 +75,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\coloring.hpp" />
-    <ClInclude Include="src\core\c2d\transform.hpp" />
-    <ClInclude Include="src\core\c3d\Camera.hpp" />
-    <ClInclude Include="src\core\c3d\projection.hpp" />
-    <ClInclude Include="src\core\c3d\transform3d.hpp" />
-    <ClInclude Include="src\core\game\GameObject.hpp" />
-    <ClInclude Include="src\core\game\GameWorld.hpp" />
-    <ClInclude Include="src\core\game\shapes\Cube.hpp" />
-    <ClInclude Include="src\core\math\math.hpp" />
-    <ClInclude Include="src\core\math\matrix.hpp" />
-    <ClInclude Include="src\core\math\vector.hpp" />
-    <ClInclude Include="src\core\wman\WinManager.hpp" />
-    <ClInclude Include="src\heng\core\c2d\transform.hpp" />
-    <ClInclude Include="src\heng\core\c3d\Camera.hpp" />
-    <ClInclude Include="src\heng\core\c3d\projection.hpp" />
-    <ClInclude Include="src\heng\core\c3d\transform3d.hpp" />
-    <ClInclude Include="src\heng\core\game\GameObject.hpp" />
-    <ClInclude Include="src\heng\core\game\GameWorld.hpp" />
-    <ClInclude Include="src\heng\core\game\shapes\Cube.hpp" />
-    <ClInclude Include="src\heng\core\math\math.hpp" />
-    <ClInclude Include="src\heng\core\math\matrix.hpp" />
-    <ClInclude Include="src\heng\core\math\vector.hpp" />
-    <ClInclude Include="src\heng\core\wman\WinManager.hpp" />
-    <ClInclude Include="src\math.hpp" />
-    <ClInclude Include="src\matrix.hpp" />
-    <ClInclude Include="src\transform.hpp" />
-    <ClInclude Include="src\vector.hpp" />
+    <ClInclude Include="src\heng\c2d\transform.hpp" />
+    <ClInclude Include="src\heng\c3d\Camera.hpp" />
+    <ClInclude Include="src\heng\c3d\projection.hpp" />
+    <ClInclude Include="src\heng\c3d\transform3d.hpp" />
+    <ClInclude Include="src\heng\game\GameObject.hpp" />
+    <ClInclude Include="src\heng\game\GameWorld.hpp" />
+    <ClInclude Include="src\heng\game\shapes\Cube.hpp" />
+    <ClInclude Include="src\heng\math\math.hpp" />
+    <ClInclude Include="src\heng\math\matrix.hpp" />
+    <ClInclude Include="src\heng\math\vector.hpp" />
+    <ClInclude Include="src\heng\wman\WinManager.hpp" />
+    <ClInclude Include="src\heng\gl\VertexBufferObject.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\coloring.cpp" />
-    <ClCompile Include="src\core\c3d\Camera.cpp" />
-    <ClCompile Include="src\core\c3d\projection.cpp" />
-    <ClCompile Include="src\core\c3d\transform3d.cpp" />
-    <ClCompile Include="src\core\game\GameWorld.cpp" />
-    <ClCompile Include="src\core\game\shapes\Cube.cpp" />
-    <ClCompile Include="src\core\wman\WinManager.cpp" />
-    <ClCompile Include="src\heng\core\c3d\Camera.cpp" />
-    <ClCompile Include="src\heng\core\c3d\projection.cpp" />
-    <ClCompile Include="src\heng\core\c3d\transform3d.cpp" />
-    <ClCompile Include="src\heng\core\game\GameWorld.cpp" />
-    <ClCompile Include="src\heng\core\game\shapes\Cube.cpp" />
-    <ClCompile Include="src\heng\core\wman\WinManager.cpp" />
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\heng\c3d\Camera.cpp" />
+    <ClCompile Include="src\heng\c3d\projection.cpp" />
+    <ClCompile Include="src\heng\c3d\transform3d.cpp" />
+    <ClCompile Include="src\heng\game\GameWorld.cpp" />
+    <ClCompile Include="src\heng\game\shapes\Cube.cpp" />
+    <ClCompile Include="src\heng\wman\WinManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

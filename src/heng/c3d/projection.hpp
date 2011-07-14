@@ -19,78 +19,20 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#include "Camera.hpp"
-#include "transform3d.hpp"
+#ifndef HENG_C3D_PROJECTION_HPP
+#define HENG_C3D_PROJECTION_HPP
 
-using heng::core::c3d::Camera;
-using namespace heng::core::math;
+#include "../math/matrix.hpp"
 
-Camera::Camera(vec3 eye, vec3 center, vec3 up)
-   : m_eye(eye), m_center(center), m_up(up)
+namespace heng
 {
-   initCam();
-   createMatrix();
-}
-
-void Camera::initCam()
+namespace c3d
 {
-   m_forward = normalize(m_center - m_eye);
-   m_up = normalize(m_up);
-   m_right =  cross(m_forward, m_up);
-}
 
-void Camera::createMatrix()
-{
-   vec3 u = cross(m_right, m_forward);
-   float a = dot(m_eye, m_right);
-   float b = dot(m_eye, m_forward);
-   float c = dot(m_eye, m_up);
+math::mat4d orthogonalProj();
+math::mat4d perspecProj(float d = 1.f);
 
-   static const mat4d res = {{
-      m_right[0]  ,  m_right[1] ,  m_right[2]  ,  -a,
-         u[0]     ,      u[1]   ,     u[2]     ,  -c,
-      m_forward[0], m_forward[1],  m_forward[2],  -b,
-          0       ,       0     ,       0      ,    1
-   }};
+} //namespace c3d
+} //namespace heng
 
-   m_matrix = res;
-}
-
-void Camera::onChange()
-{
-   createMatrix();
-}
-
-void Camera::translate(float tx, float ty, float tz)
-{
-   m_eye = unhomogen(translationMatrix(tx, ty, tz) * homogen(m_eye));
-}
-
-void Camera::yaw(float angle)
-{
-   rotate(angle, 0.f, 0.f);
-}
-
-void Camera::pitch(float angle)
-{
-   rotate(0.f, angle, 0.f);
-}
-
-void Camera::roll(float angle)
-{
-   rotate(0.f, 0.f, angle);
-}
-
-heng::core::math::mat4d Camera::matrix() const
-{
-   return m_matrix;
-}
-
-void Camera::rotate(float yaw, float pitch, float roll)
-{
-   mat4d res = pitchRotationMatrix(pitch)*yawRotationMatrix(yaw)*rollRotationMatrix(roll);
-   m_forward = unhomogen(res*homogen(m_forward));
-   m_up = unhomogen(res*homogen(m_up));
-   m_right = unhomogen(res*homogen(m_right));
-   onChange();
-}
+#endif

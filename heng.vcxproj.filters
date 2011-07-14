@@ -63,37 +63,40 @@
     <ClInclude Include="src\core\wman\WinManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\c2d\transform.hpp">
+    <ClInclude Include="src\heng\gl\VertexBufferObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\c3d\Camera.hpp">
+    <ClInclude Include="src\heng\c2d\transform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\c3d\projection.hpp">
+    <ClInclude Include="src\heng\wman\WinManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\c3d\transform3d.hpp">
+    <ClInclude Include="src\heng\c3d\Camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\game\shapes\Cube.hpp">
+    <ClInclude Include="src\heng\c3d\projection.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\game\GameObject.hpp">
+    <ClInclude Include="src\heng\c3d\transform3d.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\game\GameWorld.hpp">
+    <ClInclude Include="src\heng\game\shapes\Cube.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\math\math.hpp">
+    <ClInclude Include="src\heng\game\GameObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\math\matrix.hpp">
+    <ClInclude Include="src\heng\game\GameWorld.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\math\vector.hpp">
+    <ClInclude Include="src\heng\math\math.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\core\wman\WinManager.hpp">
+    <ClInclude Include="src\heng\math\matrix.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\heng\math\vector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -122,22 +125,22 @@
     <ClCompile Include="src\core\wman\WinManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\heng\core\c3d\Camera.cpp">
+    <ClCompile Include="src\heng\wman\WinManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\heng\core\c3d\projection.cpp">
+    <ClCompile Include="src\heng\c3d\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\heng\core\c3d\transform3d.cpp">
+    <ClCompile Include="src\heng\c3d\projection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\heng\core\game\shapes\Cube.cpp">
+    <ClCompile Include="src\heng\c3d\transform3d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\heng\core\game\GameWorld.cpp">
+    <ClCompile Include="src\heng\game\shapes\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\heng\core\wman\WinManager.cpp">
+    <ClCompile Include="src\heng\game\GameWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

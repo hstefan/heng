@@ -19,28 +19,42 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CORE_MATH_MATH_HPP
-#define HENG_CORE_MATH_MATH_HPP
+#include "Cube.hpp"
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN 1
+#include <windows.h>
+#endif
+#include <GL/gl.h>
 
-namespace heng
-{
-namespace core
-{
-namespace math
+using heng::game::shapes::Cube;
+
+const heng::math::vec3 Cube::v[8] = { {{-0.5f, 0.5f, 0.5f}}, 
+   {{0.5f, 0.5f, 0.5f}}, {{0.5f, -0.5f, 0.5f}}, 
+   {{-0.5f, -0.5f, 0.5f}}, {{-0.5f, 0.5f, -0.5f}}, 
+   {{0.5f, 0.5f, -0.5f}}, {{0.5f, -0.5f, -0.5f}}, 
+   {{-0.5f, -0.5f, -0.5f}} };
+const int Cube::v_i[36] = {0, 1, 2, 2, 3, 0, 0, 4, 7, 7, 3, 0, 0, 4, 5, 5, 
+   1, 4, 4, 5, 6, 6, 7, 4, 7, 2, 3, 7, 6, 2, 2, 1, 5, 5, 6, 1};
+
+Cube::Cube(float wx, float wy, float wz, float sx, float sy, float sz)
+   : wx(wx), wy(wy), wz(wz), sx(sx), sy(sy), sz(sz)
 {
 
-inline float invSqrt(float x)
-{
-   float xhalf = 0.5f*x;
-   int i = *(int*)&x;
-   i = 0x5f3759df - (i>>1);
-   x = *(float*)&i;
-   x = x*(1.5f - xhalf*x*x);
-   return x;
 }
 
-} //namespace math
-} //namespace core
-} //namespace heng
+void Cube::onUpdate()
+{
+}
 
-#endif
+void Cube::onRender()
+{
+   glPushMatrix();
+   glTranslatef(wx, wy, wz);
+   glScalef(sx, sy, sz);
+   glColor3f(1.f, 0.f, 0.f);
+   glBegin(GL_TRIANGLES);
+      for(int i = 0; i < 36; ++i) 
+         glVertex3f(v[v_i[i]][0], v[v_i[i]][1], v[v_i[i]][2]);
+   glEnd();
+   glPopMatrix();
+}

@@ -19,13 +19,11 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CORE_C3D_TRANSFORM_3D_HPP
-#define HENG_CORE_C3D_TRANSFORM_3D_HPP
+#ifndef HENG_C3D_TRANSFORM_3D_HPP
+#define HENG_C3D_TRANSFORM_3D_HPP
 
 #include "../math/matrix.hpp"
 namespace heng
-{
-namespace core
 {
 namespace c3d
 {
@@ -38,7 +36,6 @@ math::mat4d scaleMatrix(float sx, float sy, float sz);
 math::mat4d identityMatrix();
 
 } //namespace c3d
-} //namespace core
 } //namespace heng
 
 #endif

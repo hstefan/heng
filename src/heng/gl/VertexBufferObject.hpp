@@ -19,45 +19,53 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CORE_GAME_SHAPES_CUBE_HPP
-#define HENG_CORE_GAME_SHAPES_CUBE_HPP
+#ifndef HENG_VERTEX_BUFFER_OBJECT_HPP
+#define HENG_VERTEX_BUFFER_OBJECT_HPP
 
-#include "../GameObject.hpp"
-#include "../../math/vector.hpp"
+#include <GL3/gl3.h>
 
-namespace heng {
-namespace core {
-namespace game {
-namespace shapes {
+namespace heng
+{
+namespace gl
+{
 
 /**
- * Creates an 1x1x1 cube.
- */
-class Cube : public GameObject
+  * OpenGL's VBO encapsulation, idea stolen from yuriks.
+  */
+class VertexBufferObject
 {
 public:
-   /**
-    * @param wx X center.
-    * @param wy Y center.
-    * @param wz Z center.
-    * @param sx X size.
-    * @param sy Y size.
-    * @param sy Z size.
-    */
-   Cube(float wx, float wy, float wz, float sx, float sy, float sz);
+   VertexBufferObject();
+   ~VertexBufferObject();
 
-   void onUpdate();
-   virtual void onRender();
-
-   const float wx, wy, wz;
-   const float sx, sy, sz;
-   
-   static const heng::core::math::vec3 v[8];
-   static const int v_i[36];
+   void bind(GLenum target) const;
+   operator GLuint() const;
+private:
+   GLuint id;
 };
 
-} //namespace forms
-} //namespace game
-} //namespace core
+
+inline VertexBufferObject::BufferObject()
+{
+   glGenBuffers(1, &id);
+}
+
+inline VertexBufferObject::~BufferObject()
+{
+   glDeleteBuffers(1, &id);
+}
+
+inline void VertexBufferObject::bind(GLenum target) const
+{
+   glBindBuffer(target, id);
+}
+
+inline VertexBufferObject::operator GLuint() const
+{
+   return id;
+}
+
+} //namespace gl
 } //namespace heng
+
 #endif

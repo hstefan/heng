@@ -19,70 +19,45 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CORE_WIN_MANAGER_HPP
-#define HENG_CORE_WIN_MANAGER_HPP
+#ifndef HENG_GAME_GAMEOBJECT_HPP
+#define HENG_GAME_GAMEOBJECT_HPP
+
+#include "GameWorld.hpp"
 
 namespace heng
 {
-namespace core
+namespace game
 {
-namespace wman
-{
-/**
- * Classe para abstrata para manipular o main loop de aplicações gráficas.
- */
-class WinManager
+
+class GameObject
 {
 public:
+   inline GameObject();
    /**
-    * Função que deve ser sobreescrita para realisar operações de atualização, 
-    * de acordo com o tempo especificado no construtor.
+    * Função chamada a cada ciclo de update no gameworld.
     */
-   virtual void onUpdate() 
-   { /* Por padrão, a função onUpdate não faz nada. */ }
-   
+   virtual void onUpdate() = 0;
    /**
-    * Função que deve ser sobreescrita para realisar operações de renderização, 
-    * de acordo com o tempo especificado no construtor.
+    * Função chamada a cada ciclo de render no gameworld.
     */
    virtual void onRender() = 0;
-   
    /**
-    * Função chamada após término do main loop.
+    * Função chamada quando o gameworld é destruido.
     */
    virtual void onDestroy()
-   { /* Por padrão, não faz nada. */}
-
-   /**
-    * Função chamada quando o programa começa a rodar.
-    */
-   virtual void onStart()
-   { /*Por padrão, não faz nada*/ }
-
-   /**
-    * Função que vai "dizer" quando o programa pára, o teste será feito após cada
-    * chamada da função onUpdate.
-    */
-   virtual bool isDone() = 0;
-
-   /**
-    * Função que inicia o loop principal.
-    */
-   void run();
-
-   /**
-    * @param fps Frames per second.
-    * @param ups Updates per second.
-    */
-   WinManager(float fps, float ups);
-
+   {/* Por padrão, não faz nada. */ }
+   virtual void onCreate()
+   {/* Por padrão, não faz nada. */ }
 protected:
-   double fps;
-   double ups;
+   friend class GameWorld;
+   GameWorld::object_id id;
 };
 
-} //namespace wman
-} //namespace core
+GameObject::GameObject()
+   : id(GameWorld::DEFAULT_OBJECT_ID)
+{}
+
+} //namespace game
 } //namespace heng
 
 #endif

@@ -19,48 +19,25 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CORE_GAME_GAMEOBJECT_HPP
-#define HENG_CORE_GAME_GAMEOBJECT_HPP
-
-#include "GameWorld.hpp"
+#ifndef HENG_MATH_MATH_HPP
+#define HENG_MATH_MATH_HPP
 
 namespace heng
 {
-namespace core
-{
-namespace game
+namespace math
 {
 
-class GameObject
+inline float invSqrt(float x)
 {
-public:
-   inline GameObject();
-   /**
-    * Função chamada a cada ciclo de update no gameworld.
-    */
-   virtual void onUpdate() = 0;
-   /**
-    * Função chamada a cada ciclo de render no gameworld.
-    */
-   virtual void onRender() = 0;
-   /**
-    * Função chamada quando o gameworld é destruido.
-    */
-   virtual void onDestroy()
-   {/* Por padrão, não faz nada. */ }
-   virtual void onCreate()
-   {/* Por padrão, não faz nada. */ }
-protected:
-   friend class GameWorld;
-   GameWorld::object_id id;
-};
+   float xhalf = 0.5f*x;
+   int i = *(int*)&x;
+   i = 0x5f3759df - (i>>1);
+   x = *(float*)&i;
+   x = x*(1.5f - xhalf*x*x);
+   return x;
+}
 
-GameObject::GameObject()
-   : id(GameWorld::DEFAULT_OBJECT_ID)
-{}
-
-} //namespace game
-} //namespace core
+} //namespace math
 } //namespace heng
 
 #endif

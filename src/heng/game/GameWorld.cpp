@@ -19,85 +19,58 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#include "transform3d.hpp"
-#include <cmath>
+#include "GameWorld.hpp"
+#include "GameObject.hpp"
+#include <algorithm>
+#include <GL/glfw.h>
 
-namespace heng
-{
-namespace core
-{
-namespace c3d
-{
+using heng::game::GameWorld;
+using heng::game::GameObject;
 
-using math::mat4d;
-
-mat4d yawRotationMatrix(float angle)
+bool GameWorld::isDone()
 {
-   mat4d m = {
-      {
-         cos(angle) ,   0   , sin(angle) ,    0,
-              0     ,   1   ,     0      ,    0,
-         -sin(angle),   0   , cos(angle) ,    0,
-              0     ,   0   ,     0      ,    1
-
-      }
-   };
-   return m;
-}
-mat4d pitchRotationMatrix(float angle)
-{
-   mat4d m = {
-      {
-            1       ,       0        ,     0         ,    0,
-            0       ,   cos(angle)   ,   sin(angle)  ,    0,
-            0       ,  -sin(angle)   ,   cos(angle)  ,    0,
-            0       ,       0        ,      0        ,    1
-      }
-   };
-   return m;
-}
-mat4d rollRotationMatrix(float angle)
-{
-   mat4d m = {
-      {
-            cos(angle)   ,   sin(angle)   ,   0  ,    0,
-            -sin(angle)  ,   cos(angle)   ,   0  ,    0,
-                 0       ,        0       ,   1  ,    0,
-                 0       ,        0       ,   0  ,    1
-      }
-   };
-   return m;
-}
-mat4d translationMatrix(float tx, float ty, float tz)
-{
-   mat4d m = {
-      {
-         1, 0, 0, tx,
-         0, 1, 0, ty,
-         0, 0, 1, tz,
-         0, 0, 0,  1
-      }
-   };
-   return m;
-}
-mat4d scaleMatrix(float sx, float sy, float sz)
-{
-   mat4d m  = {
-      {
-            sx, 0  , 0 , 0,
-            0 , sy , 0 , 0,
-            0 , 0  , sz, 0,
-            0,  0  , 0 , 1
-      }
-   };
-   return m;
+   return glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS;
 }
 
-mat4d identityMatrix()
+void GameWorld::onUpdate()
 {
-   return scaleMatrix(1.f, 1.f, 1.f);
+   std::for_each(game_objs.begin(), game_objs.end(), 
+      [](std::pair<object_id, GameObject*> p) { p.second->onUpdate(); } );
 }
 
-} //namespace math
-} //namespace core
-} //namespace heng
+void GameWorld::onRender()
+{
+   std::for_each(game_objs.begin(), game_objs.end(), 
+      [](std::pair<object_id, GameObject*> p) { p.second->onRender(); } );
+}
+void GameWorld::onDestroy()
+{
+   std::for_each(game_objs.begin(), game_objs.end(), 
+      [](std::pair<object_id, GameObject*> p) { p.second->onDestroy(); } );
+}
+void GameWorld::onStart()
+{
+   std::for_each(game_objs.begin(), game_objs.end(), 
+      [](std::pair<object_id, GameObject*> p) { p.second->onCreate(); } );
+}
+
+std::pair<GameWorld::object_id, bool> GameWorld::addObject(GameObject* obj)
+{
+   int id = next_id++;
+   auto r = game_objs.insert(std::make_pair(id, obj));
+   if(r.second)
+   {
+      obj->id = id;
+      return std::make_pair(id, true);
+   }
+   else
+   {
+      --next_id;
+      return std::make_pair(DEFAULT_OBJECT_ID, false);
+   }
+}
+
+bool GameWorld::removeObject(object_id id)
+{
+   return game_objs.erase(id) > 0;
+}

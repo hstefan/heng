@@ -19,23 +19,43 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CORE_C3D_PROJECTION_HPP
-#define HENG_CORE_C3D_PROJECTION_HPP
+#ifndef HENG_CORE_GAME_SHAPES_CUBE_HPP
+#define HENG_CORE_GAME_SHAPES_CUBE_HPP
 
-#include "../math/matrix.hpp"
+#include "../GameObject.hpp"
+#include "../../math/vector.hpp"
 
-namespace heng
+namespace heng {
+namespace game {
+namespace shapes {
+
+/**
+ * Creates an 1x1x1 cube.
+ */
+class Cube : public GameObject
 {
-namespace core
-{
-namespace c3d
-{
+public:
+   /**
+    * @param wx X center.
+    * @param wy Y center.
+    * @param wz Z center.
+    * @param sx X size.
+    * @param sy Y size.
+    * @param sy Z size.
+    */
+   Cube(float wx, float wy, float wz, float sx, float sy, float sz);
 
-math::mat4d orthogonalProj();
-math::mat4d perspecProj(float d = 1.f);
+   void onUpdate();
+   virtual void onRender();
 
-} //namespace c3d
-} //namespace core
+   const float wx, wy, wz;
+   const float sx, sy, sz;
+   
+   static const heng::math::vec3 v[8];
+   static const int v_i[36];
+};
+
+} //namespace forms
+} //namespace game
 } //namespace heng
-
 #endif

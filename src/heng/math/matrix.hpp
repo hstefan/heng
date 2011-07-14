@@ -19,12 +19,10 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CORE_MATH_MATRIX_HPP
-#define HENG_CORE_MATH_MATRIX_HPP
+#ifndef HENG_MATH_MATRIX_HPP
+#define HENG_MATH_MATRIX_HPP
 
 namespace heng
-{
-namespace core
 {
 namespace math
 {
@@ -160,6 +158,5 @@ matrix<M,P> operator*(const matrix<M, N>& m1, const matrix<N, P>& m2)
    return res;
 }
 } //namespace math
-} //namespace core
 } //namespace heng
 #endif

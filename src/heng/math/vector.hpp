@@ -19,16 +19,14 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CORE_MATH_VECTOR_HPP
-#define HENG_CORE_MATH_VECTOR_HPP
+#ifndef HENG_MATH_VECTOR_HPP
+#define HENG_MATH_VECTOR_HPP
 
 #include "matrix.hpp"
 #include "math.hpp"
 #include <cmath>
 
 namespace heng
-{
-namespace core
 {
 namespace math
 {
@@ -155,7 +153,6 @@ inline float distance(const matrix<M, 1>& v, const matrix<M, 1>& u)
 }
 
 } //namespace math
-} //namespace core
 } //namespace heng
 
 #ifdef _DEBUG

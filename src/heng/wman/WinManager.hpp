@@ -19,42 +19,67 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#include "Cube.hpp"
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN 1
-#include <windows.h>
+#ifndef HENG_WIN_MANAGER_HPP
+#define HENG_WIN_MANAGER_HPP
+
+namespace heng
+{
+namespace wman
+{
+/**
+ * Classe para abstrata para manipular o main loop de aplicações gráficas.
+ */
+class WinManager
+{
+public:
+   /**
+    * Função que deve ser sobreescrita para realisar operações de atualização, 
+    * de acordo com o tempo especificado no construtor.
+    */
+   virtual void onUpdate() 
+   { /* Por padrão, a função onUpdate não faz nada. */ }
+   
+   /**
+    * Função que deve ser sobreescrita para realisar operações de renderização, 
+    * de acordo com o tempo especificado no construtor.
+    */
+   virtual void onRender() = 0;
+   
+   /**
+    * Função chamada após término do main loop.
+    */
+   virtual void onDestroy()
+   { /* Por padrão, não faz nada. */}
+
+   /**
+    * Função chamada quando o programa começa a rodar.
+    */
+   virtual void onStart()
+   { /*Por padrão, não faz nada*/ }
+
+   /**
+    * Função que vai "dizer" quando o programa pára, o teste será feito após cada
+    * chamada da função onUpdate.
+    */
+   virtual bool isDone() = 0;
+
+   /**
+    * Função que inicia o loop principal.
+    */
+   void run();
+
+   /**
+    * @param fps Frames per second.
+    * @param ups Updates per second.
+    */
+   WinManager(float fps, float ups);
+
+protected:
+   double fps;
+   double ups;
+};
+
+} //namespace wman
+} //namespace heng
+
 #endif
-#include <GL/gl.h>
-
-using heng::core::game::shapes::Cube;
-
-const heng::core::math::vec3 Cube::v[8] = { {{-0.5f, 0.5f, 0.5f}}, 
-   {{0.5f, 0.5f, 0.5f}}, {{0.5f, -0.5f, 0.5f}}, 
-   {{-0.5f, -0.5f, 0.5f}}, {{-0.5f, 0.5f, -0.5f}}, 
-   {{0.5f, 0.5f, -0.5f}}, {{0.5f, -0.5f, -0.5f}}, 
-   {{-0.5f, -0.5f, -0.5f}} };
-const int Cube::v_i[36] = {0, 1, 2, 2, 3, 0, 0, 4, 7, 7, 3, 0, 0, 4, 5, 5, 
-   1, 4, 4, 5, 6, 6, 7, 4, 7, 2, 3, 7, 6, 2, 2, 1, 5, 5, 6, 1};
-
-Cube::Cube(float wx, float wy, float wz, float sx, float sy, float sz)
-   : wx(wx), wy(wy), wz(wz), sx(sx), sy(sy), sz(sz)
-{
-
-}
-
-void Cube::onUpdate()
-{
-}
-
-void Cube::onRender()
-{
-   glPushMatrix();
-   glTranslatef(wx, wy, wz);
-   glScalef(sx, sy, sz);
-   glColor3f(1.f, 0.f, 0.f);
-   glBegin(GL_TRIANGLES);
-      for(int i = 0; i < 36; ++i) 
-         glVertex3f(v[v_i[i]][0], v[v_i[i]][1], v[v_i[i]][2]);
-   glEnd();
-   glPopMatrix();
-}

@@ -19,49 +19,40 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CORE_GAME_GAMEWORLD_HPP
-#define HENG_CORE_GAME_GAMEWORLD_HPP
+#include "WinManager.hpp"
 
-#include <map>
-#include "../wman/WinManager.hpp"
+#include <algorithm>
+#include <GL/glfw.h>
 
-namespace heng
-{
-namespace core
-{
-namespace game
-{
+using heng::wman::WinManager;
 
-class GameObject;
-
-class GameWorld : public wman::WinManager
-{
-public:
-   typedef int object_id;
-   
-   static const int DEFAULT_OBJECT_ID = -1;
-
-   inline GameWorld(float fps = 30.f, float ups = 60.f);
-
-   bool isDone();
-   void onUpdate();
-   void onRender();
-   void onDestroy();
-   void onStart();
-
-   std::pair<object_id, bool> addObject(GameObject* obj);
-   bool removeObject(object_id id);
-private:
-   std::map<object_id, GameObject*> game_objs;
-   object_id next_id;
-};
-
-GameWorld::GameWorld(float  fps, float ups)
-   : wman::WinManager(fps, ups), game_objs(), next_id(0)
+WinManager::WinManager(float fps, float ups)
+   : fps(1./fps), ups(1./ups)
 {}
 
-} //namespace game
-} //namespace core
-} //namespace heng
-
-#endif
+void WinManager::run()
+{
+   double last_update = 0.;
+   double last_render = 0.;
+   double sleep_t = 0.;
+   onStart();
+   while(!isDone() && glfwGetWindowParam(GLFW_OPENED))
+   {
+      if(glfwGetTime() - last_update > ups)
+      {
+         onUpdate();
+         last_update = glfwGetTime();
+      }
+      if(glfwGetTime() - last_render > fps)
+      {
+         glClear(GL_COLOR_BUFFER_BIT);
+         onRender();
+         glfwSwapBuffers();
+         last_render = glfwGetTime();
+      }
+      sleep_t = std::min(last_update + ups - glfwGetTime(), last_render + fps - glfwGetTime());
+      glfwSleep(sleep_t);
+   }
+   onDestroy();
+   glfwTerminate();
+}

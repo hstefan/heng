@@ -19,46 +19,77 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CORE_CAMERA_C3D_HPP
-#define HENG_CORE_CAMERA_C3D_HPP
+#ifndef HENG_C2D_TRANSFORM_HPP
+#define HENG_C2D_TRANSFORM_HPP
 
 #include "../math/vector.hpp"
+#include "../math/matrix.hpp"
+#include <cmath>
 
 namespace heng
 {
-namespace core
+namespace c2d
 {
-namespace c3d
+
+using math::vec2;
+using math::vec3;
+using math::mat3d;
+
+//deprecated
+inline vec2 rotateClockwise(const vec2& vec, float angle)
 {
-using heng::core::math::vec3;
-using heng::core::math::mat4d;
-class Camera
+   mat2d m = {{ 
+      std::cos(angle) , std::sin(angle), 
+      -std::sin(angle), std::cos(angle) 
+   }};
+
+   return m*vec;
+}
+
+//deprecated
+inline vec2 rotateAntiClockwise(const vec2& vec, float angle)
 {
-public:
-   Camera(math::vec3 eye, math::vec3 center, math::vec3 up);
+   mat2d m = {{
+      std::cos(angle), -std::sin(angle), 
+      std::sin(angle),  std::cos(angle)
+   }};
 
-   void translate(float tx, float ty, float tz);
-   void yaw(float angle);
-   void pitch(float angle);
-   void roll(float angle);
-   void rotate(float yaw, float pitch, float roll);
+   return m*vec;
+}
 
-   mat4d matrix() const;
-private:
-   void initCam();
-   void createMatrix();
-   void onChange();
+inline mat3d rotMat2dh(float angle)
+{ 
+   mat3d m = {{
+      std::cos(angle), -std::sin(angle), 0,
+      std::sin(angle), std::cos(angle) , 0,
+      0              , 0,                1
+   }};
 
-   math::vec3 m_eye;
-   math::vec3 m_center;
-   math::vec3 m_up;
-   math::vec3 m_forward;
-   math::vec3 m_right;
-   math::mat4d m_matrix;
-};
+   return m;
+}
 
-} //namespace c3d
-} //namespace core
+inline mat3d scaleMat2dh(float sx, float sy)
+{ 
+   mat3d m = {{
+      sx, 0 , 0,
+      0 , sy, 0,
+      0 , 0 , 1
+   }};
+
+   return m;
+}
+
+inline mat3d transMat2dh(float tx, float ty)
+{
+   mat3d m = {{
+      1, 0, tx,
+      0, 1, ty,
+      0, 0, 1
+   }};
+
+   return m;
+}
+
+} //namespace math
 } //namespace heng
-
 #endif
