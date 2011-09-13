@@ -19,53 +19,30 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_VERTEX_BUFFER_OBJECT_HPP
-#define HENG_VERTEX_BUFFER_OBJECT_HPP
+#ifndef HENG_GL_SHADER_HPP
+#define HENG_GL_SHADER_HPP
 
-#include <GL3/gl3.h>
+#include "Encapsulation.h"
+#include <fstream>
 
 namespace heng
 {
 namespace gl
 {
 
-/**
-  * OpenGL's VBO encapsulation, idea stolen from yuriks.
-  */
-class VertexBufferObject
+class Shader : public Encapsulation
 {
 public:
-   VertexBufferObject();
-   ~VertexBufferObject();
+   Shader(GLenum type);
+   ~Shader();
 
-   void bind(GLenum target) const;
-   operator GLuint() const;
-private:
-   GLuint id;
+   void compile() const;
+   void setSource(GLchar* code);
+   void setSource(std::ifstream& source);
 };
 
-
-inline VertexBufferObject::VertexBufferObject()
-{
-   glGenBuffers(1, &id);
+}
 }
 
-inline VertexBufferObject::~VertexBufferObject()
-{
-   glDeleteBuffers(1, &id);
-}
-
-inline void VertexBufferObject::bind(GLenum target) const
-{
-   glBindBuffer(target, id);
-}
-
-inline VertexBufferObject::operator GLuint() const
-{
-   return id;
-}
-
-} //namespace gl
-} //namespace heng
 
 #endif

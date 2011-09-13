@@ -19,53 +19,55 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_VERTEX_BUFFER_OBJECT_HPP
-#define HENG_VERTEX_BUFFER_OBJECT_HPP
+#ifndef HENG_GL_PROGRAM_HPP
+#define HENG_GL_PROGRAM_HPP
 
 #include <GL3/gl3.h>
+#include "Encapsulation.hpp"
+#include "Shader.hpp"
 
 namespace heng
 {
 namespace gl
 {
 
-/**
-  * OpenGL's VBO encapsulation, idea stolen from yuriks.
-  */
-class VertexBufferObject
+class Program : public Encapsulation
 {
 public:
-   VertexBufferObject();
-   ~VertexBufferObject();
+   Program();
+   ~Program();
 
-   void bind(GLenum target) const;
-   operator GLuint() const;
-private:
-   GLuint id;
+   void use() const;
+   void link() const;
+   void attachShader(const Shader& shader) const;
 };
 
-
-inline VertexBufferObject::VertexBufferObject()
+inline Program::Program()
+   : Encapsulation(glCreateProgram())
 {
-   glGenBuffers(1, &id);
 }
 
-inline VertexBufferObject::~VertexBufferObject()
+inline Program::~Program()
 {
-   glDeleteBuffers(1, &id);
+   glDeleteProgram(id);
 }
 
-inline void VertexBufferObject::bind(GLenum target) const
+inline void Program::use() const
 {
-   glBindBuffer(target, id);
+   glUseProgram(id);
 }
 
-inline VertexBufferObject::operator GLuint() const
+inline void Program::link() const
 {
-   return id;
+   glLinkProgram(id);
 }
 
-} //namespace gl
-} //namespace heng
+inline void Program::attachShader(const Shader& shader) const 
+{
+   glAttachShader(id, shader);
+}
+
+}
+}
 
 #endif
