@@ -25,7 +25,7 @@
 #include "../math/matrix.hpp"
 namespace heng
 {
-namespace c3d
+namespace cg
 {
 
 math::mat4d yawRotationMatrix(float angle);

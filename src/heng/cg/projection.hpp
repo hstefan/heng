@@ -19,41 +19,18 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_CAMERA_C3D_HPP
-#define HENG_CAMERA_C3D_HPP
+#ifndef HENG_C3D_PROJECTION_HPP
+#define HENG_C3D_PROJECTION_HPP
 
-#include "../math/vector.hpp"
+#include "../math/matrix.hpp"
 
 namespace heng
 {
-namespace c3d
+namespace cg
 {
-using heng::math::vec3;
-using heng::math::mat4d;
-class Camera
-{
-public:
-   Camera(math::vec3 eye, math::vec3 center, math::vec3 up);
 
-   void translate(float tx, float ty, float tz);
-   void yaw(float angle);
-   void pitch(float angle);
-   void roll(float angle);
-   void rotate(float yaw, float pitch, float roll);
-
-   mat4d matrix() const;
-private:
-   void initCam();
-   void createMatrix();
-   void onChange();
-
-   math::vec3 m_eye;
-   math::vec3 m_center;
-   math::vec3 m_up;
-   math::vec3 m_forward;
-   math::vec3 m_right;
-   math::mat4d m_matrix;
-};
+math::mat4d orthogonalProj();
+math::mat4d perspecProj(float d = 1.f);
 
 } //namespace c3d
 } //namespace heng

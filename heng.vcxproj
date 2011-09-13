@@ -40,9 +40,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>include/;$(IncludePath)</IncludePath>
+    <LibraryPath>lib/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>include/;$(IncludePath)</IncludePath>
+    <LibraryPath>lib/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -75,10 +79,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\heng\c2d\transform.hpp" />
-    <ClInclude Include="src\heng\c3d\Camera.hpp" />
-    <ClInclude Include="src\heng\c3d\projection.hpp" />
-    <ClInclude Include="src\heng\c3d\transform3d.hpp" />
+    <ClInclude Include="src\heng\cg\transform.hpp" />
+    <ClInclude Include="src\heng\cg\Camera.hpp" />
+    <ClInclude Include="src\heng\cg\projection.hpp" />
+    <ClInclude Include="src\heng\cg\transform3d.hpp" />
     <ClInclude Include="src\heng\game\GameObject.hpp" />
     <ClInclude Include="src\heng\game\GameWorld.hpp" />
     <ClInclude Include="src\heng\game\shapes\Cube.hpp" />
@@ -89,11 +93,12 @@
     <ClInclude Include="src\heng\gl\VertexBufferObject.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\heng\c3d\Camera.cpp" />
-    <ClCompile Include="src\heng\c3d\projection.cpp" />
-    <ClCompile Include="src\heng\c3d\transform3d.cpp" />
+    <ClCompile Include="src\heng\cg\Camera.cpp" />
+    <ClCompile Include="src\heng\cg\projection.cpp" />
+    <ClCompile Include="src\heng\cg\transform3d.cpp" />
     <ClCompile Include="src\heng\game\GameWorld.cpp" />
     <ClCompile Include="src\heng\game\shapes\Cube.cpp" />
+    <ClCompile Include="src\heng\gl3w.c" />
     <ClCompile Include="src\heng\wman\WinManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

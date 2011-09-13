@@ -28,7 +28,7 @@
 
 namespace heng
 {
-namespace c2d
+namespace cg
 {
 
 using math::vec2;

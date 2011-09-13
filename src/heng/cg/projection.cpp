@@ -23,7 +23,7 @@
 
 using namespace heng::math;
 
-mat4d heng::c3d::orthogonalProj()
+mat4d heng::cg::orthogonalProj()
 {
    mat4d m = {{
       1, 0, 0, 0,
@@ -34,7 +34,7 @@ mat4d heng::c3d::orthogonalProj()
    return m;
 }
 
-mat4d heng::c3d::perspecProj(float d)
+mat4d heng::cg::perspecProj(float d)
 {
    mat4d m = {{
       1, 0, 0, 0,

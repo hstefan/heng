@@ -24,7 +24,7 @@
 
 namespace heng
 {
-namespace c3d
+namespace cg
 {
 
 using math::mat4d;

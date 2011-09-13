@@ -22,7 +22,7 @@
 #include "Camera.hpp"
 #include "transform3d.hpp"
 
-using heng::c3d::Camera;
+using heng::cg::Camera;
 using namespace heng::math;
 
 Camera::Camera(vec3 eye, vec3 center, vec3 up)
