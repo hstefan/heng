@@ -139,6 +139,27 @@ inline mat4d identityMatrix()
    return scaleMatrix(1.f, 1.f, 1.f);
 }
 
+inline mat4d orthogonalProj()
+{
+   mat4d m = {{
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 0, 0,
+      0, 0, 0, 1
+   }};
+   return m;
+}
+
+inline mat4d perspecProj(float d)
+{
+   mat4d m = {{
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 0, 0,
+      0, 0, d, 1
+   }};
+   return m;
+}
 } //namespace math
 } //namespace heng
 #endif
