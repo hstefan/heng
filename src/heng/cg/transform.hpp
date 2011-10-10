@@ -160,6 +160,7 @@ inline mat4d perspecProj(float d)
    }};
    return m;
 }
+
 } //namespace math
 } //namespace heng
 #endif
