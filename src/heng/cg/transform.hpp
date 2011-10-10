@@ -36,28 +36,6 @@ using math::vec3;
 using math::mat3d;
 using math::mat4d;
 
-//deprecated
-inline vec2 rotateClockwise(const vec2& vec, float angle)
-{
-   mat2d m = {{ 
-      std::cos(angle) , std::sin(angle), 
-      -std::sin(angle), std::cos(angle) 
-   }};
-
-   return m*vec;
-}
-
-//deprecated
-inline vec2 rotateAntiClockwise(const vec2& vec, float angle)
-{
-   mat2d m = {{
-      std::cos(angle), -std::sin(angle), 
-      std::sin(angle),  std::cos(angle)
-   }};
-
-   return m*vec;
-}
-
 inline mat3d rotMat2dh(float angle)
 { 
    mat3d m = {{
