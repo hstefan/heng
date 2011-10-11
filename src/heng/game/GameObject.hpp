@@ -36,14 +36,13 @@ public:
    /**
     * Função chamada a cada ciclo de update no gameworld.
     */
-   virtual void onUpdate() = 0;
+   virtual void onUpdate()
+   { }
    /**
     * Função chamada a cada ciclo de render no gameworld.
     */
-   virtual void onRender() = 0;
-   /**
-    * Função chamada quando o gameworld é destruido.
-    */
+   virtual void onRender() 
+   { }
    virtual void onDestroy()
    {/* Por padrão, não faz nada. */ }
    virtual void onCreate()
