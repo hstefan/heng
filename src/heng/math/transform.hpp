@@ -19,22 +19,17 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_C2D_TRANSFORM_HPP
-#define HENG_C2D_TRANSFORM_HPP
+#ifndef HENG_MATH_TRANSFORM_HPP
+#define HENG_MATH_TRANSFORM_HPP
 
-#include "../math/vector.hpp"
-#include "../math/matrix.hpp"
+#include "vector.hpp"
+#include "matrix.hpp"
 #include <cmath>
 
 namespace heng
 {
-namespace cg
+namespace math
 {
-
-using math::vec2;
-using math::vec3;
-using math::mat3d;
-using math::mat4d;
 
 inline mat3d rotMat2dh(float angle)
 { 
