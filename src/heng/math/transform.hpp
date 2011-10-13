@@ -24,137 +24,21 @@
 
 #include "vector.hpp"
 #include "matrix.hpp"
-#include <cmath>
 
 namespace heng
 {
 namespace math
 {
 
-inline mat3d rotMat2dh(float angle)
-{ 
-   mat3d m = {{
-      (float)std::cos(angle), (float)-std::sin(angle), 0.f,
-      (float)std::sin(angle), (float)std::cos(angle) , 0.f,
-      0.f              , 0.f,                1.f
-   }};
-
-   return m;
-}
-
-inline mat3d scaleMat2dh(float sx, float sy)
-{ 
-   mat3d m = {{
-      sx, 0.f , 0.f,
-      0.f , sy, 0.f,
-      0.f , 0.f , 1.f
-   }};
-
-   return m;
-}
-
-inline mat3d transMat2dh(float tx, float ty)
-{
-   mat3d m = {{
-      1.f, 0.f, tx,
-      0.f, 1.f, ty,
-      0.f, 0.f, 1.f
-   }};
-
-   return m;
-}
-
-inline mat4d yawRotationMatrix(float angle)
-{
-   mat4d m = {
-      {
-         (float)cos(angle) ,   0.f   , (float)sin(angle) ,    0.f,
-              0.f          ,   1.f   ,       0.f         ,    0.f,
-         (float)-sin(angle),   0.f   , (float)cos(angle) ,    0.f,
-              0.f          ,   0.f   ,       0.f         ,    1.f
-
-      }
-   };
-   return m;
-}
-inline mat4d pitchRotationMatrix(float angle)
-{
-   mat4d m = {
-      {
-            1.f       ,       0.f             ,          0.f           ,    0.f,
-            0.f       ,   (float)cos(angle)   ,   (float)sin(angle)    ,    0.f,
-            0.f       ,   (float)-sin(angle)  ,   (float)cos(angle)    ,    0.f,
-            0.f       ,       0.f             ,          0.f           ,    1.f
-      }
-   };
-   return m;
-}
-
-inline mat4d rollRotationMatrix(float angle)
-{
-   mat4d m = {
-      {
-            (float)cos(angle)   ,   (float)sin(angle)   ,   0.f  ,    0.f,
-            (float)-sin(angle)  ,   (float)cos(angle)   ,   0.f  ,    0.f,
-                  0.f           ,          0.f          ,   1.f  ,    0.f,
-                  0.f           ,          0.f          ,   0.f  ,    1.f
-      }
-   };
-   return m;
-}
-
-inline mat4d translationMatrix(float tx, float ty, float tz)
-{
-   mat4d m = {
-      {
-         1.f, 0.f, 0.f, tx,
-         0.f, 1.f, 0.f, ty,
-         0.f, 0.f, 1.f, tz,
-         0.f, 0.f, 0.f, 1.f
-      }
-   };
-   return m;
-}
-
-inline mat4d scaleMatrix(float sx, float sy, float sz)
-{
-   mat4d m  = {
-      {
-            sx, 0.f  , 0.f , 0.f,
-            0.f , sy , 0.f , 0.f,
-            0.f , 0.f  , sz, 0.f,
-            0.f , 0.f  , 0.f , 1.f
-      }
-   };
-   return m;
-}
-
-inline mat4d identityMatrix()
-{
-   return scaleMatrix(1.f, 1.f, 1.f);
-}
-
-inline mat4d orthogonalProj()
-{
-   mat4d m = {{
-      1, 0, 0, 0,
-      0, 1, 0, 0,
-      0, 0, 0, 0,
-      0, 0, 0, 1
-   }};
-   return m;
-}
-
-inline mat4d perspecProj(float d)
-{
-   mat4d m = {{
-      1.f, 0.f, 0.f, 0.f,
-      0.f, 1.f, 0.f, 0.f,
-      0.f, 0.f, 0.f, 0.f,
-      0.f, 0.f,  d , 1.f
-   }};
-   return m;
-}
+mat4 yawRotationMatrix(float angle);
+mat4 pitchRotationMatrix(float angle);
+mat4 rollRotationMatrix(float angle);
+mat4 translationMatrix(float tx, float ty, float tz);
+mat4 scaleMatrix(float sx, float sy, float sz);
+mat4 identityMatrix();
+mat4 orthogonalProj();
+mat4 perspecProj(float d);
+mat4 rotation(const vec3& v, float angle);
 
 } //namespace math
 } //namespace heng
