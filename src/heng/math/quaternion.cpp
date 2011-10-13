@@ -19,43 +19,100 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-#ifndef HENG_MATH_QUATERNION_HPP
-#define HENG_MATH_QUATERNION_HPP
-
-#include "vector.hpp"
+#include "quaternion.hpp"
 
 namespace heng
 {
 namespace math
 {
 
-struct Quaternion;
-
-Quaternion operator *(const Quaternion& q, const Quaternion& u);
-Quaternion operator +(const Quaternion& q, const Quaternion& u);
-Quaternion operator *(const Quaternion& q, float s);
-Quaternion operator /(const Quaternion& q, float s);
-Quaternion operator *(float s, const Quaternion& q);
-Quaternion operator /(float s, const Quaternion& q);
-Quaternion conjugate(const Quaternion& q);
-Quaternion inverse(const Quaternion& q);
-Quaternion unit(const Quaternion& q);
-Quaternion multIdentity();
-Quaternion addIdentity();
-float norm(const Quaternion& q);
-
-struct Quaternion
+Quaternion operator *(const Quaternion& q, const Quaternion& u)
 {
-    Quaternion();
-    Quaternion(float w, const vec3& v);
-    Quaternion(const vec4& quat);
-    Quaternion(const Quaternion& q);
+    vec3 a = q.v;
+    vec3 b = u.v;
     
-    float w;
-    vec3 v;
-};
+    float w = q.w * u.w - dot(a, b);
+    vec3 r = cross(a, b);
+    vec3 s = b * q.w;
+    vec3 t = a * u.w;
 
+    return Quaternion(w, r + s + t);
 }
-} //namespace heng
 
-#endif
+Quaternion operator +(const Quaternion& q, const Quaternion& u)
+{
+    return Quaternion(q.w + u.w, q.v + u.v); 
+}
+
+Quaternion operator *(const Quaternion& q, float s)
+{
+    return Quaternion(q.w*s, q.v*s);
+}
+
+Quaternion operator /(const Quaternion& q, float s)
+{
+    return Quaternion(q.w/s, q.v/s);
+}
+
+Quaternion operator *(float s, const Quaternion& q)
+{
+    return Quaternion(q.w*s, q.v*s);
+}
+
+Quaternion operator /(float s, const Quaternion& q)
+{
+    return Quaternion(q.w/s, q.v/s);
+}
+
+Quaternion conjugate(const Quaternion& q)
+{
+    return Quaternion(q.w, q.v * -1.f);
+}
+
+Quaternion inverse(const Quaternion& q)
+{
+    return conjugate(q)/norm(q);
+}
+
+Quaternion unit(const Quaternion& q)
+{
+   return q/norm(q); 
+}
+
+Quaternion multIdentity()
+{
+    return Quaternion(1.f, makeVec(0.f, 0.f, 0.f));
+}
+
+Quaternion addIdentity()
+{
+    return Quaternion(0.f, makeVec(0.f, 0.f, 0.f));
+}
+
+float norm(const Quaternion& q)
+{
+    return q.w * q.w + q.v[0]*q.v[0] + q.v[1]*q.v[1] + q.v[2]*q.v[2]; 
+}
+
+Quaternion::Quaternion()
+    : w(0.f), v(makeVec(0.f, 0.f, 0.f))
+{
+}
+
+Quaternion::Quaternion(float w, const vec3& v)
+    : w(w), v(v)
+{
+}
+
+Quaternion::Quaternion(const vec4& quat)
+    : w(quat[3]), v(makeVec(quat[0], quat[1], quat[2]))
+{
+}
+
+Quaternion::Quaternion(const Quaternion& q)
+    : w(q.w), v(q.v)
+{
+}
+
+}//namespace math
+}//namespace heng
