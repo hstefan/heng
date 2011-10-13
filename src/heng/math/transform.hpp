@@ -22,13 +22,16 @@
 #ifndef HENG_MATH_TRANSFORM_HPP
 #define HENG_MATH_TRANSFORM_HPP
 
-#include "vector.hpp"
-#include "matrix.hpp"
-
 namespace heng
 {
 namespace math
 {
+
+template <unsigned int M, unsigned int N>
+struct matrix;
+
+typedef matrix<4,4> mat4;
+typedef matrix<3,1> vec3;
 
 mat4 yawRotationMatrix(float angle);
 mat4 pitchRotationMatrix(float angle);

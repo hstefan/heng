@@ -20,6 +20,9 @@
  *********************************************************************************/
 
 #include "transform.hpp"
+#include "matrix.hpp"
+#include "vector.hpp"
+
 #include <cmath>
 
 namespace heng
