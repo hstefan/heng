@@ -37,7 +37,7 @@ class GameWorld : public wman::WinManager
 public:
    typedef int object_id;
    
-   static const int DEFAULT_OBJECT_ID = -1;
+   static const int DEFAULT_OBJECT_ID;
 
    inline GameWorld(float fps = 30.f, float ups = 60.f);
 

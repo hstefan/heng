@@ -27,6 +27,8 @@
 using heng::game::GameWorld;
 using heng::game::GameObject;
 
+const int GameWorld::DEFAULT_OBJECT_ID = -1;
+
 bool GameWorld::isDone()
 {
    return glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS;

@@ -20,7 +20,7 @@
  *********************************************************************************/
 
 #include "Camera.hpp"
-#include "transform3d.hpp"
+#include "../math/transform.hpp"
 
 using heng::cg::Camera;
 using namespace heng::math;
@@ -34,8 +34,8 @@ Camera::Camera(vec3 eye, vec3 center, vec3 up)
 
 void Camera::initCam()
 {
-   m_forward = normalize(m_center - m_eye);
-   m_up = normalize(m_up);
+   m_forward = unit(m_center - m_eye);
+   m_up = unit(m_up);
    m_right =  cross(m_forward, m_up);
 }
 

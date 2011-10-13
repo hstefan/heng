@@ -122,7 +122,7 @@ inline mat4d scaleMatrix(float sx, float sy, float sz)
       {
             sx, 0.f  , 0.f , 0.f,
             0.f , sy , 0.f , 0.f,
-            0,f , 0.f  , sz, 0.f,
+            0.f , 0.f  , sz, 0.f,
             0.f , 0.f  , 0.f , 1.f
       }
    };

@@ -74,7 +74,7 @@ matrix<N, 1>& normalize(matrix<N, 1>& vec)
    float s = 0;
    for(unsigned int i = 0; i < N; ++i)
       s += vec[i] * vec[i];
-   vec *= math::invSqrt(s);
+   vec = vec * math::invSqrt(s);
    return vec;
 }
 

@@ -141,6 +141,15 @@ public:
       return data[i];
    }
 
+   matrix<M, N>& operator=(const matrix<M, N>& m)
+   {
+      for(unsigned int i = 0; i < M*N; i++)
+      {
+         data[i] = m.data[i];
+      }
+      return *this;
+   }
+
    float data[N*M];
 };
 
