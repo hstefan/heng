@@ -42,6 +42,7 @@ mat4 identityMatrix();
 mat4 orthogonalProj();
 mat4 perspecProj(float d);
 mat4 rotation(const vec3& v, float angle);
+mat4 rotation(float x, float y, float z, float angle);
 
 } //namespace math
 } //namespace heng

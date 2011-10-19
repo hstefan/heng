@@ -22,7 +22,7 @@
 #include "transform.hpp"
 #include "matrix.hpp"
 #include "vector.hpp"
-
+#include "quaternion.hpp"
 #include <cmath>
 
 namespace heng
@@ -125,13 +125,15 @@ mat4 perspecProj(float d)
 
 mat4 rotation(const vec3& v, float angle)
 {
-    mat4d m = {{
-      1.f, v[0], 0.f, 0.f,
-      0.f, 1.f, 0.f, 0.f,
-      0.f, 0.f, 0.f, 0.f,
-      0.f, 0.f,  angle , 1.f
-   }};
-   return m;
+    angle /= 2.f;
+    angle = (float)cos(angle);
+    Quaternion q = unit(Quaternion(angle, v*angle));
+    return quaternionToMatrix(q);
+}
+
+mat4 rotation(float x, float y, float z, float angle)
+{
+    return rotation(makeVec(x, y, z), angle);
 }
 
 } //namespace math
