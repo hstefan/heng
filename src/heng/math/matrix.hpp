@@ -38,6 +38,9 @@ typedef matrix<3> mat3;
 typedef matrix<2> mat2;
 
 template <unsigned int M, unsigned int N>
+matrix<M, N> operator*(float a, const matrix<M, N>& m);
+
+template <unsigned int M, unsigned int N>
 struct matrix
 {
 public:
@@ -170,6 +173,20 @@ matrix<M,P> operator*(const matrix<M, N>& m1, const matrix<N, P>& m2)
 
    return res;
 }
+
+template <unsigned int M, unsigned int N>
+matrix<M, N> operator*(float a, const matrix<M, N>& m)
+{
+    matrix<M, N> f;
+
+    for(unsigned int i = 0; i < M*N; i++)
+    {
+        f.data[i] = m.data[i] * a;
+    }
+
+    return f;
+}
+
 } //namespace math
 } //namespace heng
 #endif
