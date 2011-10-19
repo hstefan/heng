@@ -20,6 +20,7 @@
  *********************************************************************************/
 
 #include "quaternion.hpp"
+#include "matrix.hpp"
 
 namespace heng
 {
@@ -92,6 +93,48 @@ Quaternion addIdentity()
 float norm(const Quaternion& q)
 {
     return q.w * q.w + q.v[0]*q.v[0] + q.v[1]*q.v[1] + q.v[2]*q.v[2]; 
+}
+
+mat4 quaternionToMatrix(const Quaternion& q)
+{
+    float wx, wy, wz, xx, yy, yz, xy, xz, zz, x2, y2, z2;
+    mat4 m;
+    
+    x2 = q.v[0] + q.v[0];
+    y2 = q.v[1] + q.v[1];
+    z2 = q.v[2] + q.v[2];
+    
+    xx = q.v[0] * x2; 
+    xy = q.v[0] * y2; 
+    xz = q.v[0] * z2;
+    yy = q.v[1] * y2; 
+    yz = q.v[1] * z2; 
+    zz = q.v[2] * z2;
+    wx = q.w * x2; 
+    wy = q.w * y2; 
+    wz = q.w * z2;
+
+    m(0,0) = 1.0 - (yy + zz); 
+    m(1,0) = xy - wz;
+    m(2,0) = xz + wy; 
+    m(3,0) = 0.0;
+
+    m(0,1) = xy + wz; 
+    m(1,1) = 1.0 - (xx + zz);
+    m(2,1) = yz - wx; 
+    m(3,1) = 0.0;
+
+    m(0,2) = xz - wy; 
+    m(1,2) = yz + wx;
+    m(2,2) = 1.0 - (xx + yy); 
+    m(3,2) = 0.0;
+
+    m(0,3) = 0; 
+    m(1,3) = 0;
+    m(2,3) = 0; 
+    m(3,3) = 1;
+
+    return m;
 }
 
 Quaternion::Quaternion()

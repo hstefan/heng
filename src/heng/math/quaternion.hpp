@@ -29,7 +29,12 @@ namespace heng
 namespace math
 {
 
+template <unsigned int M, unsigned int N>
+struct matrix;
+
 struct Quaternion;
+
+typedef matrix<4, 4> mat4;
 
 Quaternion operator *(const Quaternion& q, const Quaternion& u);
 Quaternion operator +(const Quaternion& q, const Quaternion& u);
@@ -43,6 +48,7 @@ Quaternion unit(const Quaternion& q);
 Quaternion multIdentity();
 Quaternion addIdentity();
 float norm(const Quaternion& q);
+mat4 quaternionToMatrix(const Quaternion& q);
 
 struct Quaternion
 {
