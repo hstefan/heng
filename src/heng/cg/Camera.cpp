@@ -88,7 +88,8 @@ heng::math::mat4d Camera::matrix() const
 
 void Camera::rotate(float yaw, float pitch, float roll)
 {
-   mat4d res = pitchRotationMatrix(pitch)*yawRotationMatrix(yaw)*rollRotationMatrix(roll);
+   mat4d res = rotation(1.f, 0.f, 0.f, pitch) * rotation(0.f, 1.f, 0.f, yaw) *
+       rotation(0.f, 0.f, 1.f, roll);
    m_forward = unhomogen(res*homogen(m_forward));
    m_up = unhomogen(res*homogen(m_up));
    m_right = unhomogen(res*homogen(m_right));
