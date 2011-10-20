@@ -22,7 +22,6 @@
 #ifndef HENG_GL_PROGRAM_HPP
 #define HENG_GL_PROGRAM_HPP
 
-#include <GL3/gl3.h>
 #include "Encapsulation.hpp"
 #include "Shader.hpp"
 

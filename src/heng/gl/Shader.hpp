@@ -22,8 +22,9 @@
 #ifndef HENG_GL_SHADER_HPP
 #define HENG_GL_SHADER_HPP
 
-#include "Encapsulation.h"
+#include "Encapsulation.hpp"
 #include <fstream>
+#include <vector>
 
 namespace heng
 {
@@ -37,12 +38,46 @@ public:
    ~Shader();
 
    void compile() const;
-   void setSource(GLchar* code);
-   void setSource(std::ifstream& source);
+   void setSource(const GLchar* code) const;
+   void setSource(std::ifstream& source) const;
 };
 
+inline Shader::Shader(GLenum type)
+   : Encapsulation(glCreateShader(type))
+{
 }
+
+inline Shader::~Shader()
+{
+   glDeleteShader(id);
 }
+
+inline void Shader::compile() const
+{
+   glCompileShader(id);
+}
+
+inline void Shader::setSource(const GLchar* code) const
+{
+   glShaderSource(id, 1, &code, 0);
+}
+
+inline void Shader::setSource(std::ifstream& source)
+{
+   std::vector<char> str;
+
+   f.seekg(0, std::ios::end);
+   str.reserve((unsigned int)f.tellg() + 1);
+   f.seekg(0);
+
+   str.assign(std::istreambuf_iterator<char>(f), std::istreambuf_iterator<char>());
+   str.push_back('\0');
+
+   setSource(&str[0]);
+}
+
+} //namespace gl
+} //namespace hstefan
 
 
 #endif
