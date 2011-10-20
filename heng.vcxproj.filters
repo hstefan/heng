@@ -21,9 +21,6 @@
     <ClInclude Include="src\heng\wman\WinManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\heng\game\shapes\Cube.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\heng\game\GameObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -54,9 +51,6 @@
     <ClInclude Include="src\heng\image\ImageLoader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\png.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\heng\math\transform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,9 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\heng\wman\WinManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\heng\game\shapes\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\heng\game\GameWorld.cpp">

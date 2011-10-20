@@ -158,7 +158,7 @@ inline float distance(const matrix<M, 1>& v, const matrix<M, 1>& u)
 #ifdef _DEBUG
 #include <ostream>
 template <unsigned int M, unsigned int N>
-std::ostream& operator<<(std::ostream& out, const heng::core::math::matrix<M, N>& m)
+std::ostream& operator<<(std::ostream& out, const heng::math::matrix<M, N>& m)
 {
 	out << "(";
 	for(unsigned int i = 0; i < M; ++i)

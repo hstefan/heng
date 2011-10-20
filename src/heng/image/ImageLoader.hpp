@@ -79,6 +79,5 @@ inline unsigned char* Image::getData() const
 }
 
 }
-}
 
 #endif
