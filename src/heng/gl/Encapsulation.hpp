@@ -22,7 +22,7 @@
 #ifndef HENG_GL_ENCAPSULATION_HPP 
 #define HENG_GL_ENCAPSULATION_HPP
 
-#include <GL3/gl3.h>
+#include <GL3/gl3w.h>
 
 namespace heng
 {
