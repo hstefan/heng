@@ -79,29 +79,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\heng\cg\transform.hpp" />
+    <ClInclude Include="include\png.h" />
     <ClInclude Include="src\heng\cg\Camera.hpp" />
-    <ClInclude Include="src\heng\cg\projection.hpp" />
-    <ClInclude Include="src\heng\cg\transform3d.hpp" />
+    <ClInclude Include="src\heng\game\GameCamera.hpp" />
     <ClInclude Include="src\heng\game\GameObject.hpp" />
     <ClInclude Include="src\heng\game\GameWorld.hpp" />
     <ClInclude Include="src\heng\game\shapes\Cube.hpp" />
     <ClInclude Include="src\heng\gl\Encapsulation.hpp" />
     <ClInclude Include="src\heng\gl\Program.hpp" />
     <ClInclude Include="src\heng\gl\Shader.hpp" />
+    <ClInclude Include="src\heng\image\ImageLoader.hpp" />
     <ClInclude Include="src\heng\math\math.hpp" />
     <ClInclude Include="src\heng\math\matrix.hpp" />
+    <ClInclude Include="src\heng\math\quaternion.hpp" />
+    <ClInclude Include="src\heng\math\transform.hpp" />
     <ClInclude Include="src\heng\math\vector.hpp" />
     <ClInclude Include="src\heng\wman\WinManager.hpp" />
     <ClInclude Include="src\heng\gl\VertexBufferObject.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\heng\cg\Camera.cpp" />
-    <ClCompile Include="src\heng\cg\projection.cpp" />
-    <ClCompile Include="src\heng\cg\transform3d.cpp" />
     <ClCompile Include="src\heng\game\GameWorld.cpp" />
     <ClCompile Include="src\heng\game\shapes\Cube.cpp" />
     <ClCompile Include="src\heng\gl3w.c" />
+    <ClCompile Include="src\heng\image\ImageLoader.cpp" />
+    <ClCompile Include="src\heng\math\quaternion.cpp" />
+    <ClCompile Include="src\heng\math\transform.cpp" />
     <ClCompile Include="src\heng\wman\WinManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
