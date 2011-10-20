@@ -19,46 +19,39 @@
  * THE SOFTWARE.                                                                  *
  *********************************************************************************/
 
-
-#ifndef HENG_GAME_GAME_CAMERA_HPP
-#define HENG_GAME_GAME_CAMERA_HPP
-
-#include "GameObject.hpp"
-#include "../math/vector.hpp"
-#include "../cg/Camera.hpp"
+#include "GameCamera.hpp"
+#include <GL/glfw.h>
 
 namespace heng
 {
 namespace game
 {
 
-namespace detail
+void GameCamera::onUpdate()
 {
-struct mouse_pos
-{
-    unsigned int x;
-    unsigned int y;
-};
+    if(glfwGetKey(MOVE_FORWARD) == GLFW_PRESS)
+    {
+       translate(1.f, 0.f, 0.f); 
+    }
+    if(glfwGetKey(MOVE_BACKWARD) == GLFW_PRESS)
+    {
+       translate(-1.f, 0.f, 0.f); 
+    }
+    if(glfwGetKey(MOVE_RIGHTWARD) == GLFW_PRESS)
+    { 
+       translate(-1.f, 0.f, 0.f); 
+    }
+    if(glfwGetKey(MOVE_LEFTWARD) == GLFW_PRESS)
+    { 
+       translate(-1.f, 0.f, 0.f); 
+    }
+    int x, y;
+    glfwGetMousePos(&x, &y);
+    if(last_pos.x != x || last_pos.y != y)
+    {
+        
+    }
 }
 
-class GameCamera : public GameObject
-{
-public:
-    void onUpdate();
-    math::mat4 getMatrix();
-
-    static const char MOVE_FORWARD = 'W';  
-    static const char MOVE_BACKWARD = 'S'; 
-    static const char MOVE_LEFTWARD = 'A';     
-    static const char MOVE_RIGHTWARD = 'D';
-    
-private:
-    cg::Camera cam;
-    detail::mouse_pos last_pos;
-};
-
-} //namespace game
-} //namespace heng
-
-#endif
-
+}
+}
